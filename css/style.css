@@ -14,6 +14,7 @@ body {
 
 #VolumeControl {
 	text-align: right;
+	vertical-align: bottom;
 }
 .changeVolume {
 	font-size: 110%;
@@ -27,6 +28,8 @@ body {
 .right-col {
 	text-align: right;
 }
+
+
 
 .area-title,
 .area-video,
@@ -43,13 +46,20 @@ body {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin: 5px 0;
-	background-color: #eee;
-	border: 1px #ccc outset;
 }
 
-.area-title,
-.area-control {
+.area-title {
+	background-color: #eee;
+	border: 1px #ddd outset;
 }
+.area-control,
+.area-info,
+.area-radiooo {
+	background-color: #eee;
+	border: 1px #ddd outset;
+}
+
+
 
 .separate-table {
 	width: 100%;
@@ -64,3 +74,16 @@ body {
 	font-family: monospace;
 	margin: 0 0.5em;
 }
+
+.copyright {
+	font-size: 80%;
+}
+.copyright a {
+}
+
+
+#radioo-channel {
+	font-family: monospace;
+}
+
+

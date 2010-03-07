@@ -8,8 +8,7 @@ function updateHTML(elmId, value) {
 }
 
 function nextSong() {
-  if(newrequest) { tmp = songlist.pop();
-  } else { tmp = songlist.shift(); }
+  tmp = (newrequest ? songlist.pop() : songlist.shift());
   ytplayer.loadVideoById(tmp.song);
   updateHTML("videoUser", "@<a href=\"http://twitter.com/" + tmp.user +
              '" target="_blank">' + tmp.user + "</a>");
@@ -58,6 +57,8 @@ function updatePlayerInfo() {
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
     updateHTML("videoVolume", ytplayer.getVolume());
+    updateHTML("radiooo-songlist-length", songlist.length);
+    //updateHTML("", );
   }
 }
 
@@ -99,7 +100,7 @@ function muteVideoToggle(elem) {
       $('.volValue').css('color','black');
     } else {
       ytplayer.mute();
-      $('.volValue').css('color','#faa');
+      $('.volValue').css('color','#bbb');
     }
   }
 }
