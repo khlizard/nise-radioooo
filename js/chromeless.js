@@ -13,8 +13,7 @@ function nextSong() {
   ytplayer.loadVideoById(tmp.song);
   updateHTML("videoUser", "@<a href=\"http://twitter.com/" + tmp.user +
              '" target="_blank">' + tmp.user + "</a>");
-  updateHTML("videoLink", "<a href=\"http://www.youtube.com/watch?v=" + tmp.song +
-             '" target="_blank">' + tmp.song + "</a>");
+  $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + tmp.song);
   
   newrequest = false;
   
@@ -51,7 +50,12 @@ function updatePlayerInfo() {
   // Also check that at least one function exists since when IE unloads the
   // page, it will destroy the SWF before clearing the interval.
   if(ytplayer && ytplayer.getDuration) {
-    updateHTML("videoPlayed", parseInt(100*ytplayer.getCurrentTime()/ytplayer.getDuration()));
+    var cur = ytplayer.getCurrentTime();
+    var dur = ytplayer.getDuration();
+    var pph = parseInt(cur / dur * 100);
+    updateHTML("videoCurrent", sec2min(cur));
+    updateHTML("videoDuration", sec2min(dur));
+    updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
     updateHTML("videoVolume", ytplayer.getVolume());
   }
@@ -142,6 +146,13 @@ function cleanCode(text){
   }
   
   return null ;
+}
+
+function sec2min(src) {
+  var sec = parseInt(src % 60);
+  var min = parseInt(src / 60);
+  var sec2 = (sec < 10 ? "0" + sec : "" + sec);
+  return min + ":" + sec2;
 }
 
 // This function is automatically called by the player once it loads

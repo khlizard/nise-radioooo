@@ -1,6 +1,7 @@
 function getTimeline() {
   var query =
-    "http://search.twitter.com/search.json?lang=en&q=%23radioooo-kichi&callback=jsonCallback";
+    "http://search.twitter.com/search.json?lang=en&q=%23" + 
+    channel_name + "&callback=jsonCallback";
   if(maxid){ query += "&since_id=" + maxid; }
   var script = document.createElement("script");
   script.setAttribute("type", "text/javascript");

@@ -1,3 +1,17 @@
+body {
+	font-size: small;
+}
+
+#main-box {
+	border-collapse: separate;
+	padding: 5px;
+	background-color: white;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: #ccc 1px inset;
+}
+
 #VolumeControl {
 	text-align: right;
 }
@@ -5,4 +19,46 @@
 	font-size: 110%;
 	vertical-align: middle;
 	margin: 0 0 0 10px;
+}
+.block-title {
+	margin: 0.3em 0.5em;
+}
+
+.right-col {
+	text-align: right;
+}
+
+.area-title,
+.area-video,
+.area-control,
+.area-info {
+}
+
+.area-title,
+.area-control,
+.area-info {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 5px 0;
+	background-color: #eee;
+	border: 1px #ccc outset;
+}
+
+.area-title,
+.area-control {
+}
+
+.separate-table {
+	width: 100%;
+}
+
+
+#videoLink {
+	margin: 0 1.5em 0 0;
+}
+
+.block-info {
+	font-family: monospace;
+	margin: 0 0.5em;
 }
