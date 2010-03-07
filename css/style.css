@@ -1,0 +1,8 @@
+#VolumeControl {
+	text-align: right;
+}
+.changeVolume {
+	font-size: 60%;
+	vertical-align: middle;
+	margin: 0 0 0 10px;
+}
