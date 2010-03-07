@@ -10,7 +10,8 @@ function updateHTML(elmId, value) {
 function nextSong() {
   if (0 < new_playlist.length) {
     new_playlist = new_playlist.sort(function(){return 0.5-Math.random()});
-    playing = new_playlist[new_playlist.length-1];
+    playing = new_playlist.pop();
+    all_playlist.unshift(playing);
     all_playlist = all_playlist.concat(new_playlist);
     new_playlist = [];
   } else {
