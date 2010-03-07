@@ -31,12 +31,14 @@ body {
 .area-title,
 .area-video,
 .area-control,
-.area-info {
+.area-info,
+.area-radiooo {
 }
 
 .area-title,
 .area-control,
-.area-info {
+.area-info,
+.area-radiooo {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -55,7 +57,7 @@ body {
 
 
 #videoLink {
-	margin: 0 1.5em 0 0;
+	margin: 0 1em 0 0;
 }
 
 .block-info {

@@ -38,6 +38,10 @@ function cleanCode(text){
   return null ;
 }
 
+google.setOnLoadCallback(function() {
+  $('#radioo-channel').text('#'+channel_name);
+  $('#radioo-channel').attr('href', 'https://twitter.com/search?q=%23'+channel_name);
+});
 
 songlist = new Array();
 newrequest = new Boolean(false);
