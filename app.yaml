@@ -11,6 +11,8 @@ handlers:
   static_dir: js
 - url: /css
   static_dir: css
+- url: /img
+  static_dir: img
 - url: /.*
   static_files: radioo.htm
   upload: radioo.htm

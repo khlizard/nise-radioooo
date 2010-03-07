@@ -30,16 +30,17 @@ function cleanCode(text){
   var str = text.replace( reg , "");
   var reg = new RegExp("[A-Za-z0-9\-\_]{11}" , "im");
   var match = str.match( reg );
-  if( match != null && match.length > 0)
-  {
+  if( match != null && match.length > 0) {
     return match.pop();
   }
   
   return null ;
 }
 
+
 songlist = new Array();
 newrequest = new Boolean(false);
 maxid = null;
 setInterval(getTimeline, 60000);
 getTimeline();
+
