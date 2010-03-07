@@ -42,15 +42,10 @@
           </div>
           </td><td>
           <div id="VolumeControl">
-            Sound: <input name="chkMute" id="chkMute" type="checkbox" onclick="muteVideoToggle('chkMute');" checked /> 
+            Volume: <input name="chkMute" id="chkMute" type="checkbox" onclick="muteVideoToggle('chkMute');" checked /> 
             <span class="volValue"><span id="videoVolume">--</span>%</span>
-            <span class="changeVolume">
-            <a href="javascript:void(0);" onclick="setVideoVolume(0);">00</a> 
-            <a href="javascript:void(0);" onclick="setVideoVolume(25);">25</a> 
-            <a href="javascript:void(0);" onclick="setVideoVolume(50);">50</a> 
-            <a href="javascript:void(0);" onclick="setVideoVolume(75);">75</a> 
-            <a href="javascript:void(0);" onclick="setVideoVolume(100);">100</a>
-            </span>
+            <input name="btnVolUp" id="btnVolUp" type="button" value="▲" onclick="upVideoVolume(10);">
+            <input name="btnVolDown" id="btnVolDown" type="button" value="▼" onclick="downVideoVolume(10);">
           </div>
           </td></tr></table>
         </td>

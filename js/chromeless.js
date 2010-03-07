@@ -99,16 +99,16 @@ function muteVideoToggle(elem) {
     }
   }
 }
-function upVideoVolume() {
+function upVideoVolume(val) {
   if (ytplayer) {
-    var v = ytplayer.getVolume() + 5;
+    var v = ytplayer.getVolume() + val;
     if (100 < v) v == 100;
     ytplayer.setVolume(v);
   }
 }
-function downVideoVolume() {
+function downVideoVolume(val) {
   if (ytplayer) {
-    var v = ytplayer.getVolume() - 5;
+    var v = ytplayer.getVolume() - val;
     if (v < 0) v == 0;
     ytplayer.setVolume(v);
   }
@@ -175,9 +175,9 @@ google.setOnLoadCallback(_run);
 google.setOnLoadCallback(function() {
   $('#VolumeControl').bind('mousewheel', function(event, delta) {
     if (0 < delta) {
-      upVideoVolume();
+      upVideoVolume(5);
     } else {
-      downVideoVolume();
+      downVideoVolume(5);
     }
     return false;
   });
