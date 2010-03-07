@@ -1,0 +1,16 @@
+application: nise-radioooo
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+- url: /js
+  static_dir: js
+- url: /css
+  static_dir: css
+- url: /.*
+  static_files: radioo.htm
+  upload: radioo.htm
