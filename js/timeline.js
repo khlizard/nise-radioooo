@@ -1,6 +1,6 @@
 function getTimeline() {
   var query =
-    "http://search.twitter.com/search.json?lang=en&q=%23" + 
+    "http://search.twitter.com/search.json?q=%23" + 
     channel_name + "&callback=jsonCallback";
   if (maxid) query += "&since_id=" + maxid;
   var script = document.createElement("script");
@@ -21,7 +21,11 @@ function addRequests(res) {
     var j = res[i];
     var videoID = cleanCode(j.text);
     if (videoID) {
-      new_playlist.push({song:videoID, user:j.from_user});
+      new_playlist.push({
+        song: videoID,
+        user: j.from_user,
+        date: new Date(j.created_at)
+      });
     }
   }
 }

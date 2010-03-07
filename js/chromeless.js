@@ -20,8 +20,10 @@ function nextSong() {
   }
   
   ytplayer.loadVideoById(playing.song);
-  updateHTML("videoUser", "@<a href=\"http://twitter.com/" + playing.user +
-             '" target="_blank">' + playing.user + "</a>");
+  updateHTML( "videoUser",
+    "@<a href=\"http://twitter.com/" + playing.user +
+    '" target="_blank">' + playing.user + '</a>'
+  );
   $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + playing.song);
   
   var query = "http://gdata.youtube.com/feeds/api/videos/" + 
