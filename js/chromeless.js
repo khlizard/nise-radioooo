@@ -8,16 +8,23 @@ function updateHTML(elmId, value) {
 }
 
 function nextSong() {
-  tmp = (newrequest ? songlist.pop() : songlist.shift());
-  ytplayer.loadVideoById(tmp.song);
-  updateHTML("videoUser", "@<a href=\"http://twitter.com/" + tmp.user +
-             '" target="_blank">' + tmp.user + "</a>");
-  $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + tmp.song);
+  if (0 < new_playlist.length) {
+    new_playlist = new_playlist.sort(function(){return 0.5-Math.random()});
+    playing = new_playlist[new_playlist.length-1];
+    all_playlist = all_playlist.concat(new_playlist);
+    new_playlist = [];
+  } else {
+    playing = all_playlist.pop();
+    all_playlist.unshift(playing);
+  }
   
-  newrequest = false;
+  ytplayer.loadVideoById(playing.song);
+  updateHTML("videoUser", "@<a href=\"http://twitter.com/" + playing.user +
+             '" target="_blank">' + playing.user + "</a>");
+  $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + playing.song);
   
   var query = "http://gdata.youtube.com/feeds/api/videos/" + 
-              tmp.song + "?alt=json&callback=jsonGetTitle";
+              playing.song + "?alt=json&callback=jsonGetTitle";
   var script = document.createElement("script");
   script.setAttribute("type", "text/javascript");
   script.setAttribute("src", query);
@@ -57,7 +64,7 @@ function updatePlayerInfo() {
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
     updateHTML("videoVolume", ytplayer.getVolume());
-    updateHTML("radiooo-songlist-length", songlist.length);
+    updateHTML("radiooo-playlist-length", new_playlist.length + "/" + all_playlist.length);
     //updateHTML("", );
   }
 }
@@ -123,7 +130,7 @@ function twitStand() {
   window.open(
     "http://twitter.com/home/?status=STAND!%20" + 
     movtitle + "%20http://portal.radiooofly.com/clip/" +
-    tmp.song + "%20DJ%20@" + tmp.user + 
+    playing.song + "%20DJ%20@" + playing.user + 
     "%20%23radioooo%20http://j.mp/E4TgH"
   );
 }
@@ -132,7 +139,7 @@ function twitClap() {
   window.open(
     "http://twitter.com/home/?status=CLAP!%20" + 
     movtitle + "%20http://portal.radiooofly.com/clip/" +
-    tmp.song + "%20DJ%20@" + tmp.user + 
+    playing.song + "%20DJ%20@" + playing.user + 
     "%20%23radioooo%20http://j.mp/E4TgH"
   );
 }
@@ -155,6 +162,11 @@ function sec2min(src) {
   var sec2 = (sec < 10 ? "0" + sec : "" + sec);
   return min + ":" + sec2;
 }
+
+function rand(ceil) {
+  return Math.floor(Math.random() * ceil);
+}
+
 
 // This function is automatically called by the player once it loads
 function onYouTubePlayerReady(playerId) {
@@ -195,6 +207,6 @@ google.setOnLoadCallback(function() {
   });
 });
 
-var tmp
 var movtitle
+var playing
 

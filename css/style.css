@@ -1,3 +1,5 @@
+/* 適当に追加してるので誰か整理とデザインしてくれると嬉しいです＞＜ */
+
 body {
 	font-size: small;
 }
@@ -86,4 +88,8 @@ body {
 	font-family: monospace;
 }
 
+
+#radiooo-playlist-length {
+	font-family: monospace;
+}
 

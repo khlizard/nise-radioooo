@@ -2,7 +2,7 @@ function getTimeline() {
   var query =
     "http://search.twitter.com/search.json?lang=en&q=%23" + 
     channel_name + "&callback=jsonCallback";
-  if(maxid){ query += "&since_id=" + maxid; }
+  if (maxid) query += "&since_id=" + maxid;
   var script = document.createElement("script");
   script.setAttribute("type", "text/javascript");
   script.setAttribute("src", query);
@@ -16,25 +16,23 @@ function jsonCallback(json){
   }
 }
 
-function addRequests(results) {
-  for(var i = results.length-1; i >= 0; i--) {
-    var videoID = cleanCode(results[i].text);
-    if(videoID){ 
-      songlist.push({song:videoID, user:results[i].from_user});
+function addRequests(res) {
+  for(var i = res.length - 1; 0 <= i; i--) {
+    var j = res[i];
+    var videoID = cleanCode(j.text);
+    if (videoID) {
+      new_playlist.push({song:videoID, user:j.from_user});
     }
   }
-  if(results.length > 0){ newrequest = true; }
 }
 
 function cleanCode(text){
-  var reg = new RegExp("@radioyoutube|#radioooo-kichi" ,"gim")
-  var str = text.replace( reg , "");
-  var reg = new RegExp("[A-Za-z0-9\-\_]{11}" , "im");
-  var match = str.match( reg );
-  if( match != null && match.length > 0) {
+  var str = text.replace(/[@#]\S+/gim, '');
+  var reg = /[A-Za-z0-9\-\_]{11}/im;
+  var match = str.match(reg);
+  if( match != null && 0 < match.length) {
     return match.pop();
   }
-  
   return null ;
 }
 
@@ -43,9 +41,10 @@ google.setOnLoadCallback(function() {
   $('#radioo-channel').attr('href', 'https://twitter.com/search?q=%23'+channel_name);
 });
 
-songlist = new Array();
-newrequest = new Boolean(false);
+new_playlist = new Array();
+all_playlist = new Array();
 maxid = null;
+
 setInterval(getTimeline, 60000);
 getTimeline();
 
