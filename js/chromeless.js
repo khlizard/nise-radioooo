@@ -115,15 +115,17 @@ function muteVideoToggle(elem) {
 function upVideoVolume(val) {
   if (ytplayer) {
     var v = ytplayer.getVolume() + val;
-    if (100 < v) v == 100;
+    if (100 < v) v = 100;
     ytplayer.setVolume(v);
+    updateHTML("videoVolume", v);
   }
 }
 function downVideoVolume(val) {
   if (ytplayer) {
     var v = ytplayer.getVolume() - val;
-    if (v < 0) v == 0;
+    if (v < 0) v = 0;
     ytplayer.setVolume(v);
+    updateHTML("videoVolume", v);
   }
 }
 
