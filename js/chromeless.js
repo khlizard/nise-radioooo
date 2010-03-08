@@ -8,6 +8,8 @@ function updateHTML(elmId, value) {
 }
 
 function nextSong() {
+  $('#btnNext').attr('disabled', true);
+  
   if (0 < new_playlist.length) {
     new_playlist = new_playlist.sort(function(){return 0.5-Math.random()});
     playing = new_playlist.pop();
@@ -21,29 +23,25 @@ function nextSong() {
   
   ytplayer.loadVideoById(playing.song);
   updateHTML( "videoUser",
-    "@<a href=\"http://twitter.com/" + playing.user +
+    '@<a href="http://twitter.com/' + playing.user +
     '" target="_blank">' + playing.user + '</a>'
   );
   $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + playing.song);
   
-  var query = "http://gdata.youtube.com/feeds/api/videos/" + 
-              playing.song + "?alt=json&callback=jsonGetTitle";
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", query);
-  document.getElementsByTagName('head')[0].appendChild(script);
+  if (movie_dic[playing.song]) {
+    updateHTML('videoTitle', movie_dic[playing.song]);
+  } else {
+    var q = "http://gdata.youtube.com/feeds/api/videos/" + 
+            playing.song + "?alt=json&callback=jsonCallbackGData";
+    setJsonpCode(q);
+  }
 }
 
-function jsonGetTitle(json){
-  var thr = 9;
+function jsonCallbackGData(json){
   if (json.entry) {
     var t = json.entry.title.$t;
+    movie_dic[playing.song] = t;
     updateHTML("videoTitle", t);
-    if (t.length <= thr+3) {
-      movtitle = encodeURI(t);
-    } else {
-      movtitle = encodeURI(t.substring(0,thr)) + "...";
-    }
   }
 }
 
@@ -51,6 +49,11 @@ function jsonGetTitle(json){
 function onPlayerStateChange(newState) {
   if (newState <= 0) {
     nextSong();
+  } else if (newState == 1) {
+    var obj = $('#btnNext');
+    if (obj.attr('disabled')) {
+      setTimeout(function(){ obj.attr('disabled', false) }, 6000);
+    }
   }
 }
 
@@ -74,38 +77,24 @@ function updatePlayerInfo() {
 
 // Allow the user to set the volume from 0-100
 function setVideoVolume(volume) {
-  if (ytplayer) {
-    ytplayer.setVolume(volume);
-  }
+  if (ytplayer) ytplayer.setVolume(volume);
 }
-
 function playVideo() {
-  if (ytplayer) {
-    ytplayer.playVideo();
-  }
+  if (ytplayer) ytplayer.playVideo();
 }
-
 function pauseVideo() {
-  if (ytplayer) {
-    ytplayer.pauseVideo();
-  }
+  if (ytplayer) ytplayer.pauseVideo();
 }
-
 function muteVideo() {
-  if(ytplayer) {
-    ytplayer.mute();
-  }
+  if (ytplayer) ytplayer.mute();
 }
-
 function unMuteVideo() {
-  if(ytplayer) {
-    ytplayer.unMute();
-  }
+  if(ytplayer) ytplayer.unMute();
 }
 
-function muteVideoToggle(elem) {
+function muteVideoToggle() {
   if (ytplayer) {
-    if (document.getElementById(elem).checked) {
+    if ($('#chkMute').attr('checked')) {
       ytplayer.unMute();
       $('.volValue').css('color','black');
     } else {
@@ -117,37 +106,26 @@ function muteVideoToggle(elem) {
 function upVideoVolume(val) {
   if (ytplayer) {
     var v = ytplayer.getVolume() + val;
+    if (v < 0)   v = 0;
     if (100 < v) v = 100;
     ytplayer.setVolume(v);
     updateHTML("videoVolume", v);
   }
 }
-function downVideoVolume(val) {
-  if (ytplayer) {
-    var v = ytplayer.getVolume() - val;
-    if (v < 0) v = 0;
-    ytplayer.setVolume(v);
-    updateHTML("videoVolume", v);
-  }
-}
 
-function twitStand() {
+function twitAny(msg) {
+  var thr = 40, t = movie_dic[playing.song];
+  if (thr <= t.length) t = t.substring(0,thr-1) + "…"
+  t = encodeURI(t);
   window.open(
-    "http://twitter.com/home/?status=STAND!%20" + 
-    movtitle + "%20http://portal.radiooofly.com/clip/" +
-    playing.song + "%20DJ%20@" + playing.user + 
+    'http://twitter.com/home/?status=' + encodeURI(msg) + '%20' + 
+    t + '%20http://youtu.be/' + playing.song + "%20DJ%20@" + playing.user + 
     "%20%23radioooo%20http://j.mp/E4TgH"
   );
+  // http://portal.radiooofly.com/clip/
 }
 
-function twitClap() {
-  window.open(
-    "http://twitter.com/home/?status=CLAP!%20" + 
-    movtitle + "%20http://portal.radiooofly.com/clip/" +
-    playing.song + "%20DJ%20@" + playing.user + 
-    "%20%23radioooo%20http://j.mp/E4TgH"
-  );
-}
+
 
 function cleanCode(text){
   var reg = new RegExp("@radioyoutube|#radioooo-kichi" ,"gim")
@@ -157,7 +135,6 @@ function cleanCode(text){
   if( match != null && match.length > 0) {
     return match.pop();
   }
-  
   return null ;
 }
 
@@ -166,10 +143,6 @@ function sec2min(src) {
   var min = parseInt(src / 60);
   var sec2 = (sec < 10 ? "0" + sec : "" + sec);
   return min + ":" + sec2;
-}
-
-function rand(ceil) {
-  return Math.floor(Math.random() * ceil);
 }
 
 
@@ -206,7 +179,7 @@ google.setOnLoadCallback(function() {
     if (0 < delta) {
       upVideoVolume(5);
     } else {
-      downVideoVolume(5);
+      upVideoVolume(-5);
     }
     return false;
   });
@@ -215,3 +188,4 @@ google.setOnLoadCallback(function() {
 var movtitle
 var playing
 
+var movie_dic = {};

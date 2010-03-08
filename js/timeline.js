@@ -1,15 +1,13 @@
 function getTimeline() {
-  var query =
-    "http://search.twitter.com/search.json?q=%23" + 
-    channel_name + "&callback=jsonCallback";
-  if (maxid) query += "&since_id=" + maxid;
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", query);
-  document.getElementsByTagName('head')[0].appendChild(script);
+  var q =
+    "http://search.twitter.com/search.json?rpp=30&q=%23" + 
+    channel_name + "&callback=jsonCallbackTimeline";
+  if (maxid) q += "&since_id=" + maxid;
+  q += '&rndid=' + Math.random() * 100000000;
+  setJsonpCode(q);
 }
 
-function jsonCallback(json){
+function jsonCallbackTimeline(json){
   if (json.results) {
     maxid = json.max_id;
     addRequests(json.results)
@@ -38,6 +36,13 @@ function cleanCode(text){
     return match.pop();
   }
   return null ;
+}
+
+function setJsonpCode(query) {
+  var script = document.createElement("script");
+  script.setAttribute("type", "text/javascript");
+  script.setAttribute("src", query);
+  document.getElementsByTagName('head')[0].appendChild(script);
 }
 
 google.setOnLoadCallback(function() {

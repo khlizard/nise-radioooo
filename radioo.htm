@@ -38,9 +38,9 @@
         </div>
         </td><td class="right-col">
         <div id="VolumeControl">
-          Vol: <input name="chkMute" id="chkMute" type="checkbox" onclick="muteVideoToggle('chkMute');" checked /> 
+          Vol: <input name="chkMute" id="chkMute" type="checkbox" onclick="muteVideoToggle();" checked /> 
           <span class="volValue"><span id="videoVolume">--</span>%</span>
-          <input name="btnVolDown" id="btnVolDown" type="button" value="▼" onclick="downVideoVolume(10);" title="マウスホイールでも音量変更できます" /><input name="btnVolUp" id="btnVolUp" type="button" value="▲" onclick="upVideoVolume(10);" title="マウスホイールでも音量変更できます" />
+          <input name="btnVolDown" id="btnVolDown" type="button" value="▼" onclick="upVideoVolume(-10);" title="マウスホイールでも音量変更できます" /><input name="btnVolUp" id="btnVolUp" type="button" value="▲" onclick="upVideoVolume(10);" title="マウスホイールでも音量変更できます" />
         </div>
         </td></tr></table>
       </td></tr>
@@ -60,7 +60,7 @@
         </div>
       </td></tr></table></td></tr>
       <tr><td class="area-radiooo"><table class="separate-table"><tr><td>
-        <input name="btnClap" id="btnClap" type="button" value="CLAP!" onclick="twitClap()" /><input name="btnStand" id="btnStand" type="button" value="STAND!" onclick="twitStand()" />
+        <input name="btnClap" id="btnClap" type="button" value="CLAP!" onclick="twitAny('CLAP!')" /><input name="btnStand" id="btnStand" type="button" value="STAND!" onclick="twitAny('STAND!');" />
       </td><td class="right-col">
         <span class="copyright">&copy;<a href="https://twitter.com/DameNegi" target="_blank">Da</a>,<a href="https://twitter.com/pump_pump_king" target="_blank">Pu</a>,<a href="https://twitter.com/khlizard" target="_blank">kh</a>/<a href="http://github.com/khtokage/nise-radioooo" target="_blank">git</a></span>
       </td></tr></table></td></tr>
