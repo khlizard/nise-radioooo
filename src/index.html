@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Radioo以外の何か</title>
+    <title>RadioooClone v0.3.0</title>
     <meta http-equiv="Content-Style-Type" content="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -10,7 +10,7 @@
       channel_name = function(){
         var r0 = 'radioyoutube';
         var r1 = 0 < location.hash.length ? location.hash : null;
-        var r2 = (location.href.match(/\?[\w\-]{5,}/) || [])[0];
+        var r2 = (location.href.match(/\?[\w\-]{4,}/) || [])[0];
         return (r2 || r1 || r0).replace(/^[#\?]/, '');
       }();
       google.load("jquery",    "1.3");
