@@ -120,10 +120,9 @@ function twitAny(msg) {
   window.open(
     'http://twitter.com/home/?status=' + encodeURI(msg) + 
     '%20' + t + '%20http://youtu.be/' + playing.song + 
-    "%20DJ%20@" + playing.user + "%20%23radioooo"
+    "%20DJ%20@" + playing.user + "%20%23radioooo" +
+    "%20" + this_url
   );
-  // http://portal.radiooofly.com/clip/
-  // %20http://j.mp/E4TgH
 }
 
 
@@ -173,9 +172,8 @@ function _run() {
   loadPlayer();
 }
 
-google.setOnLoadCallback(_run);
-
 google.setOnLoadCallback(function() {
+  _run();
   $('#VolumeControl').bind('mousewheel', function(event, delta) {
     if (0 < delta) {
       upVideoVolume(5);
@@ -184,9 +182,13 @@ google.setOnLoadCallback(function() {
     }
     return false;
   });
+  $.getJSON("/shorturl/?"+channel_name, function(data){
+    this_url = data.short;
+  });
+  document.title = '[' + channel_name + '] ' + document.title; 
 });
 
-var movtitle
-var playing
-
+var playing;
 var movie_dic = {};
+
+var this_url = "http://j.mp/aDQtKc";
