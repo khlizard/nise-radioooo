@@ -114,15 +114,16 @@ function upVideoVolume(val) {
 }
 
 function twitAny(msg) {
-  var thr = 40, t = movie_dic[playing.song];
+  var thr = 50, t = movie_dic[playing.song];
   if (thr <= t.length) t = t.substring(0,thr-1) + "…"
   t = encodeURI(t);
   window.open(
-    'http://twitter.com/home/?status=' + encodeURI(msg) + '%20' + 
-    t + '%20http://youtu.be/' + playing.song + "%20DJ%20@" + playing.user + 
-    "%20%23radioooo%20http://j.mp/E4TgH"
+    'http://twitter.com/home/?status=' + encodeURI(msg) + 
+    '%20' + t + '%20http://youtu.be/' + playing.song + 
+    "%20DJ%20@" + playing.user + "%20%23radioooo"
   );
   // http://portal.radiooofly.com/clip/
+  // %20http://j.mp/E4TgH
 }
 
 
