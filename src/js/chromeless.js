@@ -6,6 +6,15 @@
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
 }
+function num2str(num, val) {
+  if (num < 10) {
+    return '&nbsp;&nbsp;' + num;
+  } else if (num < 100) {
+    return '&nbsp;' + num;
+  } else {
+    return '' + num;
+  }
+}
 
 function nextSong() {
   $('#btnNext').attr('disabled', true);
@@ -26,6 +35,8 @@ function nextSong() {
     '@<a href="http://twitter.com/' + playing.user +
     '" target="_blank">' + playing.user + '</a>'
   );
+  $('#videoPostedTime').strftime('%m/%d %H:%M:%S', playing.date);
+  //updateHTML('videoPostedTime', playing.date);
   $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + playing.song);
   
   if (movie_dic[playing.song]) {
@@ -69,7 +80,7 @@ function updatePlayerInfo() {
     updateHTML("videoDuration", sec2min(dur));
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
-    updateHTML("videoVolume", ytplayer.getVolume());
+    updateHTML("videoVolume", num2str(ytplayer.getVolume()));
     updateHTML("radiooo-playlist-length", new_playlist.length + "/" + all_playlist.length);
     //updateHTML("", );
   }
@@ -96,10 +107,10 @@ function muteVideoToggle() {
   if (ytplayer) {
     if ($('#chkMute').attr('checked')) {
       ytplayer.unMute();
-      $('.volValue').css('color','black');
+      ytplayer.isMute = false;
     } else {
       ytplayer.mute();
-      $('.volValue').css('color','#bbb');
+      ytplayer.isMute = true;
     }
   }
 }
@@ -109,7 +120,8 @@ function upVideoVolume(val) {
     if (v < 0)   v = 0;
     if (100 < v) v = 100;
     ytplayer.setVolume(v);
-    updateHTML("videoVolume", v);
+    updateHTML("videoVolume", num2str(v));
+    $("#volSlider").slider('value', v);
   }
 }
 
@@ -155,6 +167,9 @@ function onYouTubePlayerReady(playerId) {
   updatePlayerInfo();
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "nextSong");
+  // volSlider
+  $('#volSlider').slider('value', ytplayer.getVolume());
+  ytplayer.isMute = false;
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -174,14 +189,6 @@ function _run() {
 
 google.setOnLoadCallback(function() {
   _run();
-  $('#VolumeControl').bind('mousewheel', function(event, delta) {
-    if (0 < delta) {
-      upVideoVolume(5);
-    } else {
-      upVideoVolume(-5);
-    }
-    return false;
-  });
   $.getJSON("/shorturl/?"+channel_name, function(data){
     this_url = data.short;
   });

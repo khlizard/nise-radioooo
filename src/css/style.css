@@ -1,37 +1,40 @@
 /* 適当に追加してるので誰か整理とデザインしてくれると嬉しいです＞＜ */
 
+/* total */
+
 body {
 	font-size: small;
+	background-color: #color;
+	background-image: url("../img/bodybg.png");
 }
 
-#main-box {
-	border-collapse: separate;
-	padding: 5px;
-	background-color: white;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border: #ccc 1px inset;
+a {
+	color: #1C94C4;
 }
-
-#VolumeControl {
-	text-align: right;
-	vertical-align: bottom;
-}
-.changeVolume {
-	font-size: 110%;
-	vertical-align: middle;
-	margin: 0 0 0 10px;
-}
-.block-title {
-	margin: 0.3em 0.5em;
+.separate-table {
+	width: 100%;
 }
 
 .right-col {
 	text-align: right;
 }
 
+.block-title {
+	margin: 0.3em 0.5em;
+}
 
+button {
+	font-size: 60%;
+}
+
+/* outline */
+
+#main-box {
+	border-collapse: separate;
+	padding: 5px;
+	background-color: white;
+	border: #ccc 1px solid;
+}
 
 .area-title,
 .area-video,
@@ -44,29 +47,46 @@ body {
 .area-control,
 .area-info,
 .area-radiooo {
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	margin: 5px 0;
+	background-color: #f8f8f8;
+	border: 1px #ccc solid;
 }
 
-.area-title {
-	background-color: #eee;
-	border: 1px #ddd outset;
-}
 .area-control,
 .area-info,
 .area-radiooo {
-	background-color: #eee;
-	border: 1px #ddd outset;
 }
 
 
 
-.separate-table {
-	width: 100%;
+/* area title */
+
+.area-title {
+	border-color: #f6931f;
+	background-color: white;
+	font-size: 90%;
+}
+.video-title {
+	padding: 0 0 2px 0;
+	margin:  0 0 2px 0;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #f6931f;
+	font-weight: bold;
+}
+.video-title a {
+	text-decoration: none;
+	color: #f6931f;
+}
+.video-title a:hover {
+	text-decoration: underline;
+	color: #1c94c4;
 }
 
+.video-info {
+	text-align: right;
+	font-family: monospace;
+	font-size: 100%;
+}
 
 #videoLink {
 	margin: 0 1em 0 0;
@@ -77,19 +97,57 @@ body {
 	margin: 0 0.5em;
 }
 
-.copyright {
-	font-size: 80%;
-}
-.copyright a {
+
+
+/* area video */
+
+
+
+/* area control */
+
+/* volume */
+
+#VolumeControl {
+	text-align: right;
+	vertical-align: bottom;
+	width: 200px;
+	margin: 0 5px 0 auto;
 }
 
+.changeVolume {
+	font-size: 110%;
+	vertical-align: middle;
+	margin: 0 0 0 10px;
+}
+.volValue {
+	font-weight: bold;
+	color: #f6931f;
+	font-family: monospace;
+}
+
+
+
+/* area info */
 
 #radioo-channel {
 	font-family: monospace;
 }
-
-
 #radiooo-playlist-length {
 	font-family: monospace;
+}
+
+
+
+/* area radiooo */
+
+.helplink a {
+	color: #f6931f;
+}
+
+.copyright {
+	font-size: 80%;
+}
+.copyright a {
+	
 }
 
