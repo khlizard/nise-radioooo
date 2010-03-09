@@ -14,5 +14,5 @@ handlers:
 - url: /img
   static_dir: img
 - url: /.*
-  static_files: radioo.htm
-  upload: radioo.htm
+  static_files: index.html
+  upload: index.html
