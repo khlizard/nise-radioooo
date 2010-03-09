@@ -74,7 +74,7 @@ $(function() {
 /* Help */
 
 function openHelpDialog() {
-  alert("すいません、まだ何も書けてません。\n\nとりあえずこのプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n\nあとは… posterousのRadioooの説明も近いうちになんとかします。ほんと誰か代わりに仕事してくれないかなぁ…\n\n3/10 2:40 @khlizard");
+  alert("すいません、まだ何も書けてません。\n\nとりあえずこのプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。あと音量はマウスホイールでも変えれます。\n\nあとは… posterousのRadioooの説明も近いうちになんとかします。ほんと誰か代わりに仕事してくれないかなぁ…\n\n3/10 2:50 @khlizard");
   
   //$("#dialog").dialog("destroy");
   
