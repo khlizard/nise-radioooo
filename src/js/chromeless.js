@@ -52,7 +52,7 @@ function jsonCallbackGData(json){
     updateHTML("videoTitle", t);
     if (json.entry.yt$noembed) {
       movie_dic[playing.song] = {title: t, embed: false};
-      nextSong();
+      setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
     } else {
       movie_dic[playing.song] = {title: t, embed: true};
     }
