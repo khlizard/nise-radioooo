@@ -11,7 +11,7 @@ $(function() {
     value: 100,
     slide: function(event, ui) {
       setVideoVolume(ui.value);
-      updateHTML("videoVolume", num2str(ui.value));
+      updateHTML("videoVolume", num2str3(ui.value));
     }
   });
   
@@ -74,11 +74,10 @@ $(function() {
 /* Help */
 
 function openHelpDialog() {
-  alert("すいません、まだ何も書けてません。\n\nとりあえずこのプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。あと音量はマウスホイールでも変えれます。\n\nあとは… posterousのRadioooの説明も近いうちになんとかします。ほんと誰か代わりに仕事してくれないかなぁ…\n\n3/10 2:50 @khlizard");
-  
-  //$("#dialog").dialog("destroy");
+  alert("すいません、まだ何も書けてません。とりあえずいくつか。\n\n* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\nv0.3.0 見た目・UIを変更、バグ修正。\nv0.3.2 新規取得曲のシャッフル方法変更。細かな修正。\n\nあとは… posterousのRadioooの説明も近いうちになんとかします。\n\n3/10 13:10 @khlizard");
   
   /*
+  $("#dialog").dialog("destroy");
   $("#dialog-message").dialog({
     modal: true,
     buttons: {

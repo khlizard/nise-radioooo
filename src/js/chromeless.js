@@ -6,7 +6,7 @@
 function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
 }
-function num2str(num, val) {
+function num2str3(num, val) {
   if (num < 10) {
     return '&nbsp;&nbsp;' + num;
   } else if (num < 100) {
@@ -17,14 +17,17 @@ function num2str(num, val) {
 }
 
 function nextSong() {
-  $('#btnNext').attr('disabled', true);
+  $('#btnNext').button('disable');
+  var rs_scale = 60 * 20 * 1000;
   
   if (0 < new_playlist.length) {
-    new_playlist = new_playlist.sort(function(){return 0.5-Math.random()});
+    new_playlist.sort(function(a,b){
+      return a.date - b.date + (Math.random()-0.5) * rs_scale;
+    });
     playing = new_playlist.pop();
     all_playlist.unshift(playing);
     all_playlist = all_playlist.concat(new_playlist);
-    new_playlist = [];
+    new_playlist.length = 0;
   } else {
     playing = all_playlist.pop();
     all_playlist.unshift(playing);
@@ -36,8 +39,7 @@ function nextSong() {
     '" target="_blank">' + playing.user + '</a>'
   );
   $('#videoPostedTime').strftime('%m/%d %H:%M:%S', playing.date);
-  //updateHTML('videoPostedTime', playing.date);
-  $('#videoLink').attr('href', "http://www.youtube.com/watch?v=" + playing.song);
+  $('#videoLink').attr('href', "http://youtu.be/" + playing.song);
   
   if (movie_dic[playing.song]) {
     updateHTML('videoTitle', movie_dic[playing.song]);
@@ -61,10 +63,10 @@ function onPlayerStateChange(newState) {
   if (newState <= 0) {
     nextSong();
   } else if (newState == 1) {
-    var obj = $('#btnNext');
-    if (obj.attr('disabled')) {
-      setTimeout(function(){ obj.attr('disabled', false) }, 6000);
-    }
+    //var obj = $('#btnNext');
+    //if (obj.attr('disabled')) {
+    setTimeout(function(){ $('#btnNext').button('enable') }, 6000);
+    //}
   }
 }
 
@@ -80,7 +82,7 @@ function updatePlayerInfo() {
     updateHTML("videoDuration", sec2min(dur));
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
-    updateHTML("videoVolume", num2str(ytplayer.getVolume()));
+    updateHTML("videoVolume", num2str3(ytplayer.getVolume()));
     updateHTML("radiooo-playlist-length", new_playlist.length + "/" + all_playlist.length);
     //updateHTML("", );
   }
@@ -120,7 +122,7 @@ function upVideoVolume(val) {
     if (v < 0)   v = 0;
     if (100 < v) v = 100;
     ytplayer.setVolume(v);
-    updateHTML("videoVolume", num2str(v));
+    updateHTML("videoVolume", num2str3(v));
     $("#volSlider").slider('value', v);
   }
 }
@@ -189,10 +191,10 @@ function _run() {
 
 google.setOnLoadCallback(function() {
   _run();
-  $.getJSON("/shorturl/?"+channel_name, function(data){
+  $.getJSON("/shorturl/?" + channel_name, function(data){
     this_url = data.short;
   });
-  document.title = '[' + channel_name + '] ' + document.title; 
+  document.title = '#' + channel_name + ' - ' + document.title; 
 });
 
 var playing;
