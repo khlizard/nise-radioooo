@@ -7,17 +7,13 @@ function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
 }
 function num2str3(num, val) {
-  if (num < 10) {
-    return '&nbsp;&nbsp;' + num;
-  } else if (num < 100) {
-    return '&nbsp;' + num;
-  } else {
-    return '' + num;
-  }
+  if (num < 10)       return '&nbsp;&nbsp;' + num;
+  else if (num < 100) return '&nbsp;' + num;
+  else                return '' + num;
 }
 
 function nextSong() {
-  $('#btnNext').button('disable');
+  btnNextEnable(false);
   var rs_scale = 60 * 20 * 1000;
   
   if (0 < new_playlist.length) {
@@ -41,8 +37,8 @@ function nextSong() {
   $('#videoPostedTime').strftime('%m/%d %H:%M:%S', playing.date);
   $('#videoLink').attr('href', "http://youtu.be/" + playing.song);
   
-  if (movie_dic[playing.song]) {
-    updateHTML('videoTitle', movie_dic[playing.song]);
+  if (movie_dic[playing.song] && movie_dic[playing.song].embed) {
+    updateHTML('videoTitle', movie_dic[playing.song].title);
   } else {
     var q = "http://gdata.youtube.com/feeds/api/videos/" + 
             playing.song + "?alt=json&callback=jsonCallbackGData";
@@ -53,22 +49,33 @@ function nextSong() {
 function jsonCallbackGData(json){
   if (json.entry) {
     var t = json.entry.title.$t;
-    movie_dic[playing.song] = t;
     updateHTML("videoTitle", t);
+    if (json.entry.yt$noembed) {
+      movie_dic[playing.song] = {title: t, embed: false};
+      nextSong();
+    } else {
+      movie_dic[playing.song] = {title: t, embed: true};
+    }
   }
 }
 
 // This function is called when the player changes state
+// http://code.google.com/intl/ja/apis/youtube/js_api_reference.html#Events
 function onPlayerStateChange(newState) {
   if (newState <= 0) {
     nextSong();
   } else if (newState == 1) {
-    //var obj = $('#btnNext');
-    //if (obj.attr('disabled')) {
-    setTimeout(function(){ $('#btnNext').button('enable') }, 6000);
-    //}
+    setTimeout(function(){ btnNextEnable(true); }, 5500);
   }
 }
+function onPlayerError() {
+  if (!isError) {
+    console.warn("PlayerError");
+    isPlayerError = true;
+    setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
+  }
+}
+var isPlayerError = false;
 
 // Display information about the current state of the player
 function updatePlayerInfo() {
@@ -128,11 +135,11 @@ function upVideoVolume(val) {
 }
 
 function twitAny(msg) {
-  var thr = 50, t = movie_dic[playing.song];
+  var thr = 50, t = movie_dic[playing.song].title;
   if (thr <= t.length) t = t.substring(0,thr-1) + "…"
-  t = encodeURI(t);
+  t = encodeURIComponent(t);
   window.open(
-    'http://twitter.com/home/?status=' + encodeURI(msg) + 
+    'http://twitter.com/home/?status=' + encodeURIComponent(msg) + 
     '%20' + t + '%20http://youtu.be/' + playing.song + 
     "%20DJ%20@" + playing.user + "%20%23radioooo" +
     "%20" + this_url
@@ -168,7 +175,7 @@ function onYouTubePlayerReady(playerId) {
   setInterval(updatePlayerInfo, 250);
   updatePlayerInfo();
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-  ytplayer.addEventListener("onError", "nextSong");
+  ytplayer.addEventListener("onError", "onPlayerError");
   // volSlider
   $('#volSlider').slider('value', ytplayer.getVolume());
   ytplayer.isMute = false;

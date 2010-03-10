@@ -40,26 +40,44 @@ $(function() {
   
 });
 
-/* Control */
+/* ----- Control ----- */
 $(function() {
   $('#btnPlay').button({
     text: false,
     label: 'Play',
     icons: {primary: 'ui-icon-play'}
-  });
+  }).click(playVideo);
+  
   $('#btnPause').button({
     text: false,
     label: 'Pause',
     icons: {primary: 'ui-icon-pause'}
-  });
+  }).click(pauseVideo);
+  
   $('#btnNext').button({
     text: false,
     label: 'Next',
     icons: {primary: 'ui-icon-seek-end'}
+  }).click(function(){
+    if (boolBtnNextEnable) nextSong();
   });
+  // aaa
 });
+function btnNextEnable(val) {
+  val = (val != false);
+  boolBtnNextEnable = val;
+  if (val) {
+    $('#btnNext').button('enable');
+  } else {
+    $('#btnNext').button('disable');
+  }
+  return val;
+}
+var boolBtnNextEnable = true;
 
-/* Radiooo */
+
+
+/* ----- Radiooo ----- */
 $(function() {
   $('#btnClap').button({
     text: true,
@@ -74,7 +92,14 @@ $(function() {
 /* Help */
 
 function openHelpDialog() {
-  alert("すいません、まだ何も書けてません。とりあえずいくつか。\n\n* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\nv0.3.0 見た目・UIを変更、バグ修正。\nv0.3.2 新規取得曲のシャッフル方法変更。細かな修正。\n\nあとは… posterousのRadioooの説明も近いうちになんとかします。\n\n3/10 13:10 @khlizard");
+  alert("すいません、まだ何も書けてません。とりあえずいくつか。\n\n"+
+  "* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n"+
+  "* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\n"+
+  "v0.4.0 見た目・UIを変更、バグ修正。\n"+
+  "v0.4.2 新規取得曲のシャッフル方法変更。細かな修正。\n"+
+  "v0.4.4 新規取得曲のシャッフル方法変更。細かな修正。\n\n"+
+  "posterousのRadioooの説明も近いうちになんとかします。\n\n"+
+  "3/10 13:10 @khlizard");
   
   /*
   $("#dialog").dialog("destroy");
