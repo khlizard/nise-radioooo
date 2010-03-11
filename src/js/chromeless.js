@@ -90,7 +90,12 @@ function updatePlayerInfo() {
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
     updateHTML("videoVolume", num2str3(ytplayer.getVolume()));
-    updateHTML("radiooo-playlist-length", new_playlist.length + "/" + all_playlist.length);
+    updateHTML("radiooo-playlist-length", 
+      new_playlist.length + "/" + all_playlist.length);
+    if (playing) {
+      document.title = '[' + movie_dic[playing.song].title + '] #' +
+                       channel_name + ' - ' + base_title;
+    }
     //updateHTML("", );
   }
 }
@@ -109,7 +114,7 @@ function muteVideo() {
   if (ytplayer) ytplayer.mute();
 }
 function unMuteVideo() {
-  if(ytplayer) ytplayer.unMute();
+  if (ytplayer) ytplayer.unMute();
 }
 
 function muteVideoToggle() {
@@ -201,7 +206,7 @@ google.setOnLoadCallback(function() {
   $.getJSON("/shorturl/?" + channel_name, function(data){
     this_url = data.short;
   });
-  document.title = '#' + channel_name + ' - ' + document.title; 
+  //document.title = '#' + channel_name + ' - ' + document.title; 
 });
 
 var playing;
