@@ -17,11 +17,9 @@ $(function() {
   
   $('#VolumeControl').bind('mousewheel', function(event, delta) {
     if (!ytplayer.isMute) {
-      if (0 < delta) {
-        upVideoVolume(5);
-      } else {
-        upVideoVolume(-5);
-      }
+      var vol = 5;
+      if (delta < 0) vol = vol * -1
+      upVideoVolume(vol);
     }
     return false;
   });
@@ -97,7 +95,7 @@ function openHelpDialog() {
   "* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\n"+
   "v0.4.0 見た目・UIを変更、バグ修正。\n"+
   "v0.4.2 新規取得曲のシャッフル方法変更。細かな修正。\n"+
-  "v0.4.4 ドラムロール状態になる事の対策、Nextボタンのバグ修正、埋め込み不可動画で止まるバグ修正。。\n\n"+
+  "v0.4.4 曲名がザ・ベストテン状態になるバグ・Nextボタンが無効でも押せるバグ・埋め込み不可動画で止まるバグの修正。\n\n"+
   "posterousのRadioooの説明も近いうちになんとかします。\n\n"+
   "3/11 07:00 @khlizard");
   
