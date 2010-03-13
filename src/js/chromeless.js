@@ -153,17 +153,6 @@ function twitAny(msg) {
 
 
 
-function cleanCode(text){
-  var reg = new RegExp("@radioyoutube|#radioooo-kichi" ,"gim")
-  var str = text.replace( reg , "");
-  var reg = new RegExp("[A-Za-z0-9\-\_]{11}" , "im");
-  var match = str.match( reg );
-  if( match != null && match.length > 0) {
-    return match.pop();
-  }
-  return null ;
-}
-
 function sec2min(src) {
   var sec = parseInt(src % 60);
   var min = parseInt(src / 60);

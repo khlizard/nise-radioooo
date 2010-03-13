@@ -18,24 +18,27 @@ function addRequests(res) {
   for(var i = res.length - 1; 0 <= i; i--) {
     var j = res[i];
     var videoID = cleanCode(j.text);
-    if (videoID) {
+    if (false && videoID) {
       new_playlist.push({
         song: videoID,
         user: j.from_user,
-        date: new Date(j.created_at)
+        date: new Date(j.created_at),
+        title: null,
+        embed: null
       });
     }
   }
 }
 
 function cleanCode(text){
-  var str = text.replace(/[@#]\S+/gim, '');
-  var reg = /[A-Za-z0-9\-\_]{11}/im;
-  var match = str.match(reg);
-  if( match != null && 0 < match.length) {
+  var re01 = /[@#]\S+|[&?=;:,./^\r\n]/gim;
+  var remt = / ([a-z0-9\-\_]{11}) /i;
+  var str = ' ' + text.replace(re01, ' ') + ' ';
+  var match = str.match(remt);
+  if( match && 2 <= match.length) {
     return match.pop();
   }
-  return null ;
+  return null;
 }
 
 function setJsonpCode(query) {

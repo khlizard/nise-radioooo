@@ -24,6 +24,14 @@ class MainHandler(webapp.RequestHandler):
     else:
       luri = baseuri
     
+    # preset
+    if luri == 'http://radioooclone.vanu.jp/?radioooo-kichi':
+      suri = 'http://j.mp/blsJRR'
+      use_method = 'p'
+    elif luri == 'http://radioooclone.vanu.jp/':
+        suri = 'http://j.mp/aDQtKc'
+        use_method = 'p'
+    
     # memcache
     try:
       suri = memcache.get(luri)
