@@ -18,7 +18,7 @@ function addRequests(res) {
   for(var i = res.length - 1; 0 <= i; i--) {
     var j = res[i];
     var videoID = cleanCode(j.text);
-    if (false && videoID) {
+    if (videoID) {
       new_playlist.push({
         song: videoID,
         user: j.from_user,
@@ -35,10 +35,7 @@ function cleanCode(text){
   var remt = / ([a-z0-9\-\_]{11}) /i;
   var str = ' ' + text.replace(re01, ' ') + ' ';
   var match = str.match(remt);
-  if( match && 2 <= match.length) {
-    return match.pop();
-  }
-  return null;
+  return (match && 2 <= match.length) ? match.pop() : null;
 }
 
 function setJsonpCode(query) {
@@ -48,10 +45,9 @@ function setJsonpCode(query) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-google.setOnLoadCallback(function() {
-  $('#radioo-channel').text('#'+channel_name);
-  $('#radioo-channel').attr('href', 'https://twitter.com/search?q=%23'+channel_name);
-});
+
+
+/***** Initialize *****/
 
 new_playlist = new Array();
 all_playlist = new Array();

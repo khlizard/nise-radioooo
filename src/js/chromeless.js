@@ -2,16 +2,6 @@
  * Chromeless player has no controls.
  */
 
-// Update a particular HTML element with a new value
-function updateHTML(elmId, value) {
-  document.getElementById(elmId).innerHTML = value;
-}
-function num2str3(num, val) {
-  if (num < 10)       return '&nbsp;&nbsp;' + num;
-  else if (num < 100) return '&nbsp;' + num;
-  else                return '' + num;
-}
-
 function nextSong() {
   btnNextEnable(false);
   var rs_scale = 60 * 20 * 1000;
@@ -85,7 +75,7 @@ function updatePlayerInfo() {
     var cur = ytplayer.getCurrentTime();
     var dur = ytplayer.getDuration();
     var pph = parseInt(cur / dur * 100);
-    updateHTML("videoCurrent", sec2min(cur));
+    updateHTML("videoCurrent",  sec2min(cur));
     updateHTML("videoDuration", sec2min(dur));
     updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
@@ -151,16 +141,6 @@ function twitAny(msg) {
   );
 }
 
-
-
-function sec2min(src) {
-  var sec = parseInt(src % 60);
-  var min = parseInt(src / 60);
-  var sec2 = (sec < 10 ? "0" + sec : "" + sec);
-  return min + ":" + sec2;
-}
-
-
 // This function is automatically called by the player once it loads
 function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById("ytPlayer");
@@ -189,6 +169,30 @@ function loadPlayer() {
 function _run() {
   loadPlayer();
 }
+
+
+
+/***** Utility Fuctions *****/
+
+// Update a particular HTML element with a new value
+function updateHTML(elmId, value) {
+  document.getElementById(elmId).innerHTML = value;
+}
+function num2str3(num, val) {
+  if (num < 10)       return '&nbsp;&nbsp;' + num;
+  else if (num < 100) return '&nbsp;' + num;
+  else                return '' + num;
+}
+function sec2min(src) {
+  var sec = parseInt(src % 60);
+  var min = parseInt(src / 60);
+  var sec2 = (sec < 10 ? "0" + sec : "" + sec);
+  return min + ":" + sec2;
+}
+
+
+
+/***** Initialize *****/
 
 google.setOnLoadCallback(function() {
   _run();

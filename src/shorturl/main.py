@@ -12,7 +12,7 @@ import shorturl_config as config
 import bitly
 
 class MainHandler(webapp.RequestHandler):
-
+  
   def get(self):
     baseuri = 'http://radioooclone.vanu.jp/'
     use_method = '-'
@@ -29,15 +29,16 @@ class MainHandler(webapp.RequestHandler):
       suri = 'http://j.mp/blsJRR'
       use_method = 'p'
     elif luri == 'http://radioooclone.vanu.jp/':
-        suri = 'http://j.mp/aDQtKc'
-        use_method = 'p'
+      suri = 'http://j.mp/aDQtKc'
+      use_method = 'p'
     
     # memcache
-    try:
-      suri = memcache.get(luri)
-      use_method = 'm'
-    except KeyError:
-      suri = None
+    if suri is None:
+      try:
+        suri = memcache.get(luri)
+        use_method = 'm'
+      except KeyError:
+        suri = None
     
     # bit.ly
     if suri is None:
@@ -54,8 +55,7 @@ class MainHandler(webapp.RequestHandler):
 
 
 def main():
-  application = webapp.WSGIApplication([('.*', MainHandler)],
-                                       debug=True)
+  application = webapp.WSGIApplication([('.*', MainHandler)], debug=True)
   util.run_wsgi_app(application)
 
 

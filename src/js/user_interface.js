@@ -27,13 +27,9 @@ $(function() {
   $('#chkMute').button({icons: {primary: 'ui-icon-volume-on'}});
   
   $('#chkMute').click(function() {
-    if ($('#chkMute').attr('checked')) {
-      $('.volValue').css('color','#f6931f');
-      $("#volSlider").slider('enable');
-    } else {
-      $('.volValue').css('color','#bbb');
-      $("#volSlider").slider('disable');
-    }
+    var chk = $('#chkMute').attr('checked');
+    $('.volValue').css('color', chk ? '#f6931f' : '#bbb');
+    $("#volSlider").slider(chk ? 'enable'  : 'disable');
   });
   
 });
@@ -59,16 +55,11 @@ $(function() {
   }).click(function(){
     if (boolBtnNextEnable) nextSong();
   });
-  // aaa
 });
 function btnNextEnable(val) {
   val = (val != false);
   boolBtnNextEnable = val;
-  if (val) {
-    $('#btnNext').button('enable');
-  } else {
-    $('#btnNext').button('disable');
-  }
+  $('#btnNext').button(val ? 'enable' : 'disable');
   return val;
 }
 var boolBtnNextEnable = true;
@@ -85,19 +76,23 @@ $(function() {
     text: true,
     label: 'STAND!'
   });
+  
+  $('#radioo-channel').text('#'+channel_name);
+  $('#radioo-channel').attr(
+    'href', 'http://twitter.com/search?q=%23'+channel_name);
 });
-
 /* Help */
 
 function openHelpDialog() {
   alert("すいません、まだ何も書けてません。とりあえずいくつか。\n\n"+
   "* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n"+
   "* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\n"+
-  "v0.4.0 見た目・UIを変更、バグ修正。\n"+
-  "v0.4.2 新規取得曲のシャッフル方法変更。細かな修正。\n"+
-  "v0.4.4 曲名がザ・ベストテン状態になるバグ・Nextボタンが無効でも押せるバグ・埋め込み不可動画で止まるバグの修正。\n\n"+
-  "posterousのRadioooの説明も近いうちになんとかします。\n\n"+
-  "3/11 07:00 @khlizard");
+  "v0.4.4 曲名がザ・ベストテン状態になるバグ・Nextボタンが無効でも押せるバグ・埋め込み不可動画で止まるバグの修正。\n"+
+  "v0.4.5 タイトルバーに曲名とか\n"+
+  "v0.4.6 古いコードが残っていたりして動画IDを取得するのを稀にミスしていた部分を修正。他コードの整理など。\n"+
+  "\n"+
+  "Radiooooの説明はgithubのwikiに書き直しました。http://wiki.github.com/khtokage/nise-radioooo/ \n\n"+
+  "3/13 07:00 @khlizard");
   
   /*
   $("#dialog").dialog("destroy");
