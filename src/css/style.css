@@ -1,9 +1,9 @@
 /* 適当に追加してるので誰か整理とデザインしてくれると嬉しいです＞＜ */
 
-/* total */
+/****** total ******/
 
 body {
-	font-size: small;
+	font-size: 9pt;
 	background-color: #color;
 	background-image: url("../img/bodybg.png");
 }
@@ -27,20 +27,22 @@ button {
 	font-size: 60%;
 }
 
-/* outline */
+/****** outline ******/
 
 #main-box {
 	border-collapse: separate;
 	padding: 5px;
 	background-color: white;
 	border: #ccc 1px solid;
+	width:  496px;
 }
 
 .area-title,
 .area-video,
 .area-control,
 .area-info,
-.area-radiooo {
+.area-radiooo.
+.area-tabs {
 }
 
 .area-title,
@@ -50,20 +52,25 @@ button {
 	background-color: #f8f8f8;
 	border: 1px #ccc solid;
 }
-
 .area-control,
 .area-info,
 .area-radiooo {
 }
+.area-info,
+.area-radiooo {
+	/*display: none;*/
+}
+.area-tabs {
+	display: none;
+}
 
 
 
-/* area title */
+/****** area title ******/
 
 .area-title {
 	border-color: #f6931f;
 	background-color: white;
-	font-size: 90%;
 }
 .video-title {
 	padding: 0 0 2px 0;
@@ -72,6 +79,7 @@ button {
 	border-style: solid;
 	border-color: #f6931f;
 	font-weight: bold;
+	font-size: 9pt;
 }
 .video-title a {
 	text-decoration: none;
@@ -85,49 +93,93 @@ button {
 .video-info {
 	text-align: right;
 	font-family: monospace;
-	font-size: 100%;
+	font-size: 8pt;
 }
 
 #videoLink {
 	margin: 0 1em 0 0;
 }
 
-.block-info {
-	font-family: monospace;
-	margin: 0 0.5em;
+
+
+
+/****** area video ******/
+.area-video {
+	text-align: center;
 }
 
 
 
-/* area video */
 
 
+/****** area control ******/
 
-/* area control */
+td.area-control {
+	height: 1px;
+	padding: 0;
+}
+td.area-control * {
+	/*border: 1px red solid;*/
+}
+.control-layout {
+	border-collapse: collapse;
+	width: 482px;
+	height: 39px;
+}
+.control-layout td {
+	vertical-align: middle;
+	margin: 0;
+}
+.control-layout td.ctrl-buttons {
+	width: 145px;
+	padding: 0 0 0 5px;
+	/*border: 1px red solid;*/
+}
+.control-layout td.info {
+	width: 145px;
+}
+.control-layout td.volume {
+	
+}
 
+.control-layout div.info {
+	vertical-align: middle;
+	text-align: center;
+	font-family: monospace;
+	border: 1px #ccc solid;
+	padding: 9px 0;
+	font-size: 8pt;
+	margin: 0;
+}
+.control-layout div.info * {
+	/*border: 1px red solid;*/
+}
 /* volume */
 
-#VolumeControl {
+#volume-control {
+	border-collapse: collapse;
 	text-align: right;
 	vertical-align: bottom;
-	width: 200px;
 	margin: 0 5px 0 auto;
 }
 
-.changeVolume {
-	font-size: 110%;
-	vertical-align: middle;
-	margin: 0 0 0 10px;
-}
-.volValue {
+#volume-control .volume-value {
 	font-weight: bold;
 	color: #f6931f;
 	font-family: monospace;
 }
+#volume-control td.mute-button {
+	width: 70px;
+}
+#volume-control td.vol-slider {
+	width: 90px;
+}
 
 
 
-/* area info */
+
+
+/****** area info ******/
 
 #radioo-channel {
 	font-family: monospace;
@@ -138,7 +190,7 @@ button {
 
 
 
-/* area radiooo */
+/****** area radiooo ******/
 
 .helplink a {
 	color: #f6931f;

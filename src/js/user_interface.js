@@ -4,7 +4,7 @@
 
 /* Volume */
 $(function() {
-  $("#volSlider").slider({
+  $("#volume-slider").slider({
     range: "min",
     min:     0,
     max:   100,
@@ -15,7 +15,7 @@ $(function() {
     }
   });
   
-  $('#VolumeControl').bind('mousewheel', function(event, delta) {
+  $('#volume-control').bind('mousewheel', function(event, delta) {
     if (!ytplayer.isMute) {
       var vol = 5;
       if (delta < 0) vol = vol * -1
@@ -28,14 +28,20 @@ $(function() {
   
   $('#chkMute').click(function() {
     var chk = $('#chkMute').attr('checked');
-    $('.volValue').css('color', chk ? '#f6931f' : '#bbb');
-    $("#volSlider").slider(chk ? 'enable'  : 'disable');
+    $('.volume-value').css('color', chk ? '#f6931f' : '#bbb');
+    $("#volume-slider").slider(chk ? 'enable'  : 'disable');
   });
   
 });
 
 /* ----- Control ----- */
 $(function() {
+  $('#btnRewind').button({
+    text: false,
+    label: 'Rewind',
+    icons: {primary: 'ui-icon-seek-first'}
+  }).click(function(){ rewindVideo(); });
+  
   $('#btnPlay').button({
     text: false,
     label: 'Play',
@@ -81,6 +87,13 @@ $(function() {
   $('#radioo-channel').attr(
     'href', 'http://twitter.com/search?q=%23'+channel_name);
 });
+
+/* ----- Tabs ----- */
+$(function() {
+  $("#block-tabs").tabs();
+});
+
+
 /* Help */
 
 function openHelpDialog() {

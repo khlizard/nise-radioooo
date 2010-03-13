@@ -44,27 +44,51 @@
       <div id="videoDiv">Loading...</div>
     </td></tr>
     <tr><td class="area-control ui-corner-all">
-      <table class="separate-table"><tr><td>
-      <div id="PlayerControl">
-        <button id="btnPlay"></button><button id="btnPause"></button><button id="btnNext"></button>
-      </div>
-      </td><td class="right-col">
-        <table id="VolumeControl"><tr>
-          <td><input id="chkMute" type="checkbox" onclick="muteVideoToggle();" checked /><label for="chkMute"><span class="volValue"><span id="videoVolume">--</span>%</span></label></td>
-          <td width="100px"><div id="volSlider"></div></td>
+      <table class="control-layout"><tr>
+      <td class="ctrl-buttons">
+           <button id="btnRewind"></button><!--
+        --><button id="btnPlay"></button><!--
+        --><button id="btnPause"></button><!--
+        --><button id="btnNext"></button>
+      </td><td class="info">
+        <div class="info ui-corner-all">
+          <span id="videoPlayTime">--</span>
+          <!--span id="videoCurrent"> </span>/<span id="videoDuration"> </span-->
+          (<span id="videoLoaded">--</span>%)
+        </div>
+      </td><td class="volume">
+        <table id="volume-control"><tr>
+          <td class="mute-button">
+            <input id="chkMute" type="checkbox" onclick="muteVideoToggle();" checked />
+            <label for="chkMute">
+              <span class="volume-value"><span id="videoVolume">--</span>%</span>
+            </label>
+          </td><td class="vol-slider">
+            <div id="volume-slider"></div>
+          </td>
         </tr></table>
       </td></tr></table>
     </td></tr>
+    <tr><td class="area-tabs ui-corner-all">
+      <div id="block-tabs">
+        <ul>
+          <li><a href="#tabs-1">Nunc tincidunt</a></li>
+          <li><a href="#tabs-2">Proin dolor</a></li>
+          <li><a href="#tabs-3">Aenean lacinia</a></li>
+        </ul>
+        <div id="tabs-1">
+          Proin elit arcu,<br />aa
+        </div>
+        <div id="tabs-2">
+          Morbi tincidunt,
+        </div>
+        <div id="tabs-3">
+          Mauris eleifend
+        </div>
+      </div>
+    </td></tr>
     <tr><td class="area-info ui-corner-all">
     <table class="separate-table"><tr><td>
-      <div class="block-info">
-      Playing:
-        <span id="videoCurrent">--</span> / 
-        <span id="videoDuration">--</span> 
-        (<span id="videoCurrentPph">--</span>%)
-        &nbsp;
-      Loaded: <span id="videoLoaded">--</span>%
-      </div>
     </td><td class="right-col">
       <div class="span-reqinfo">
         <a id="radioo-channel" href="" target="_blank">--</a>

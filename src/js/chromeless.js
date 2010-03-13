@@ -67,18 +67,20 @@ function onPlayerError() {
 }
 var isPlayerError = false;
 
-// Display information about the current state of the player
 function updatePlayerInfo() {
-  // Also check that at least one function exists since when IE unloads the
-  // page, it will destroy the SWF before clearing the interval.
   if(ytplayer && ytplayer.getDuration) {
     var cur = ytplayer.getCurrentTime();
     var dur = ytplayer.getDuration();
-    var pph = parseInt(cur / dur * 100);
-    updateHTML("videoCurrent",  sec2min(cur));
-    updateHTML("videoDuration", sec2min(dur));
-    updateHTML("videoCurrentPph", pph);
-    updateHTML("videoLoaded", parseInt(100*ytplayer.getVideoBytesLoaded()/ytplayer.getVideoBytesTotal()));
+    //var ppph = parseInt(cur / dur * 100);
+    var lbyte = ytplayer.getVideoBytesLoaded();
+    var tbyte = ytplayer.getVideoBytesTotal();
+    var lpph  = parseInt(100 * lbyte / tbyte);
+    
+    updateHTML("videoPlayTime",  sec2min(cur) + '/' + sec2min(dur));
+    //updateHTML("videoCurrent",  sec2min(cur));
+    //updateHTML("videoDuration", sec2min(dur));
+    //updateHTML("videoCurrentPph", pph);
+    updateHTML("videoLoaded", num2str3z(lpph));
     updateHTML("videoVolume", num2str3(ytplayer.getVolume()));
     updateHTML("radiooo-playlist-length", 
       new_playlist.length + "/" + all_playlist.length);
@@ -99,6 +101,13 @@ function playVideo() {
 }
 function pauseVideo() {
   if (ytplayer) ytplayer.pauseVideo();
+}
+function stopVideo() {
+  if (ytplayer) ytplayer.stopVideo();
+}
+function rewindVideo() {
+  if (ytplayer) ytplayer.seekTo(0, false);
+  //ytplayer.stopVideo();
 }
 function muteVideo() {
   if (ytplayer) ytplayer.mute();
@@ -125,7 +134,7 @@ function upVideoVolume(val) {
     if (100 < v) v = 100;
     ytplayer.setVolume(v);
     updateHTML("videoVolume", num2str3(v));
-    $("#volSlider").slider('value', v);
+    $("#volume-slider").slider('value', v);
   }
 }
 
@@ -150,8 +159,7 @@ function onYouTubePlayerReady(playerId) {
   updatePlayerInfo();
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
-  // volSlider
-  $('#volSlider').slider('value', ytplayer.getVolume());
+  $('#volume-slider').slider('value', ytplayer.getVolume());
   ytplayer.isMute = false;
 }
 
@@ -183,11 +191,17 @@ function num2str3(num, val) {
   else if (num < 100) return '&nbsp;' + num;
   else                return '' + num;
 }
+function num2str3z(num, val) {
+  if (num < 10)       return '00' + num;
+  else if (num < 100) return '0' + num;
+  else                return '' + num;
+}
 function sec2min(src) {
   var sec = parseInt(src % 60);
   var min = parseInt(src / 60);
   var sec2 = (sec < 10 ? "0" + sec : "" + sec);
-  return min + ":" + sec2;
+  var min2 = (min < 10 ? "0" + min : "" + min);
+  return min2 + ":" + sec2;
 }
 
 
