@@ -110,10 +110,11 @@ function openHelpDialog() {
   "■v0.4.6 \n動画IDを取得するのを稀にミスしていた部分を修正。\n" +
   "■v0.4.7 \nRewind(巻き戻し)実装。タブを載せるために場所整理。\n" +
   "■v0.4.8 \nRewind & Priv に変更。動画開始5秒以内だと前の曲を流します。\nタブ掲載。タブに載せる物は未実装です =)\n" +
+  "■v0.4.9 \nRewind/Privボタンのバグ修正。\nChromeでショートカット作成時のメタ情報添加。\n" +
   "\n" +
   "Radiooooの説明はgithubのwikiに書き直しました。http://wiki.github.com/khtokage/nise-radioooo/ \n" +
   "\n" +
-  "3/14 15:30 @khlizard";
+  "3/14 17:30 @khlizard";
   alert(msg);
   
   /*
@@ -131,3 +132,11 @@ function openHelpDialog() {
   
   return false;
 }
+
+$(function() {
+  $("meta[name='application-name']")
+    .attr('content', 'RadioooClone #'+channel_name);
+  $("meta[name='application-url']")
+    .attr('content', location.href);
+});
+

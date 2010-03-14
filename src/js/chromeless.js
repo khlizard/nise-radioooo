@@ -24,14 +24,16 @@ function nextSong() {
   setMovieTitle(playing);
 }
 function privSong() {
-  btnNextEnable(false);
-  new_playlist.push(all_playlist.shift());
-  playing = all_playlist.shift();
-  
-  ytplayer.loadVideoById(playing.song);
-  
-  updatePlayingData(playing);
-  setMovieTitle(playing);
+  if (2 <= all_playlist.length) {
+    btnNextEnable(false);
+    new_playlist.push(all_playlist.shift());
+    playing = all_playlist[0];
+    
+    ytplayer.loadVideoById(playing.song);
+    
+    updatePlayingData(playing);
+    setMovieTitle(playing);
+  }
 }
 function setMovieTitle(songdata) {
   if (movie_dic[songdata.song] && movie_dic[songdata.song].embed) {
