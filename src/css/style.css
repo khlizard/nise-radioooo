@@ -99,7 +99,12 @@ button {
 #videoLink {
 	margin: 0 1em 0 0;
 }
-
+#videoUserIcon {
+	width:  10px;
+	height: 10px;
+	margin: 0 3px 0 0;
+	vertical-align: bottom;
+}
 
 
 

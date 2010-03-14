@@ -18,6 +18,7 @@ class MainHandler(webapp.RequestHandler):
     use_method = '-'
     chre = re.compile('[\w\-]{4,}', re.IGNORECASE)
     mt = chre.match(self.request.query_string)
+    suri = None
     
     if mt:
       luri = baseuri + '?' + mt.group(0)
@@ -28,8 +29,11 @@ class MainHandler(webapp.RequestHandler):
     if luri == 'http://radioooclone.vanu.jp/?radioooo-kichi':
       suri = 'http://j.mp/blsJRR'
       use_method = 'p'
+    elif luri == 'http://radioooclone.vanu.jp/?radioyoutube':
+      suri = 'http://j.mp/bLRgbI'
+      use_method = 'p'
     elif luri == 'http://radioooclone.vanu.jp/':
-      suri = 'http://j.mp/aDQtKc'
+      suri = 'http://j.mp/bLRgbI'  #'http://j.mp/aDQtKc'
       use_method = 'p'
     
     # memcache

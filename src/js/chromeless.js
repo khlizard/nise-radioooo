@@ -45,7 +45,8 @@ function setMovieTitle(songdata) {
   }
 }
 function updatePlayingData(songdata) {
-  updateHTML( "videoUser",
+  $('#videoUserIcon').attr('src', songdata.icon);
+  updateHTML("videoUser",
     '@<a href="http://twitter.com/' + songdata.user +
     '" target="_blank">' + songdata.user + '</a>'
   );

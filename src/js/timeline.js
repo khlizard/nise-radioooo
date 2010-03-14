@@ -1,6 +1,6 @@
 function getTimeline() {
   var q =
-    "http://search.twitter.com/search.json?rpp=30&q=%23" + 
+    "http://search.twitter.com/search.json?lang=all&rpp=30&q=%23" + 
     channel_name + "&callback=jsonCallbackTimeline";
   if (maxid) q += "&since_id=" + maxid;
   q += '&rndid=' + Math.random() * 100000000;
@@ -22,7 +22,8 @@ function addRequests(res) {
       new_playlist.push({
         song: videoID,
         user: j.from_user,
-        date: new Date(j.created_at)
+        icon: j.profile_image_url,
+        date: new Date(j.created_at),
       });
     }
   }
