@@ -22,9 +22,7 @@ function addRequests(res) {
       new_playlist.push({
         song: videoID,
         user: j.from_user,
-        date: new Date(j.created_at),
-        title: null,
-        embed: null
+        date: new Date(j.created_at)
       });
     }
   }

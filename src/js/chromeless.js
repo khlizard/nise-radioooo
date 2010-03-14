@@ -18,22 +18,37 @@ function nextSong() {
     playing = all_playlist.pop();
     all_playlist.unshift(playing);
   }
+  ytplayer.loadVideoById(playing.song);
+  
+  updatePlayingData(playing);
+  setMovieTitle(playing);
+}
+function privSong() {
+  btnNextEnable(false);
+  new_playlist.push(all_playlist.shift());
+  playing = all_playlist.shift();
   
   ytplayer.loadVideoById(playing.song);
-  updateHTML( "videoUser",
-    '@<a href="http://twitter.com/' + playing.user +
-    '" target="_blank">' + playing.user + '</a>'
-  );
-  $('#videoPostedTime').strftime('%m/%d %H:%M:%S', playing.date);
-  $('#videoLink').attr('href', "http://youtu.be/" + playing.song);
   
-  if (movie_dic[playing.song] && movie_dic[playing.song].embed) {
-    updateHTML('videoTitle', movie_dic[playing.song].title);
+  updatePlayingData(playing);
+  setMovieTitle(playing);
+}
+function setMovieTitle(songdata) {
+  if (movie_dic[songdata.song] && movie_dic[songdata.song].embed) {
+    updateHTML('videoTitle', movie_dic[songdata.song].title);
   } else {
     var q = "http://gdata.youtube.com/feeds/api/videos/" + 
             playing.song + "?alt=json&callback=jsonCallbackGData";
     setJsonpCode(q);
   }
+}
+function updatePlayingData(songdata) {
+  updateHTML( "videoUser",
+    '@<a href="http://twitter.com/' + songdata.user +
+    '" target="_blank">' + songdata.user + '</a>'
+  );
+  $('#videoPostedTime').strftime('%m/%d %H:%M:%S', songdata.date);
+  $('#videoLink').attr('href', "http://youtu.be/" + songdata.song);
 }
 
 function jsonCallbackGData(json){
@@ -49,7 +64,6 @@ function jsonCallbackGData(json){
   }
 }
 
-// This function is called when the player changes state
 // http://code.google.com/intl/ja/apis/youtube/js_api_reference.html#Events
 function onPlayerStateChange(newState) {
   if (newState <= 0) {
@@ -77,14 +91,11 @@ function updatePlayerInfo() {
     var lpph  = parseInt(100 * lbyte / tbyte);
     
     updateHTML("videoPlayTime",  sec2min(cur) + '/' + sec2min(dur));
-    //updateHTML("videoCurrent",  sec2min(cur));
-    //updateHTML("videoDuration", sec2min(dur));
-    //updateHTML("videoCurrentPph", pph);
     updateHTML("videoLoaded", num2str3z(lpph));
     updateHTML("videoVolume", num2str3(ytplayer.getVolume()));
     updateHTML("radiooo-playlist-length", 
       new_playlist.length + "/" + all_playlist.length);
-    if (playing) {
+    if (playing && movie_dic[playing.song]) {
       document.title = '[' + movie_dic[playing.song].title + '] #' +
                        channel_name + ' - ' + base_title;
     }
@@ -107,7 +118,6 @@ function stopVideo() {
 }
 function rewindVideo() {
   if (ytplayer) ytplayer.seekTo(0, false);
-  //ytplayer.stopVideo();
 }
 function muteVideo() {
   if (ytplayer) ytplayer.mute();

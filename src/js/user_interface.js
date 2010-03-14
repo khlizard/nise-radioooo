@@ -36,11 +36,17 @@ $(function() {
 
 /* ----- Control ----- */
 $(function() {
-  $('#btnRewind').button({
+  $('#btnPriv').button({
     text: false,
-    label: 'Rewind',
+    label: 'Priv',
     icons: {primary: 'ui-icon-seek-first'}
-  }).click(function(){ rewindVideo(); });
+  }).click(function(){
+    if (ytplayer.getCurrentTime() <= 5) {
+      privSong();
+    } else {
+      rewindVideo();
+    }
+  });
   
   $('#btnPlay').button({
     text: false,
@@ -85,7 +91,7 @@ $(function() {
   
   $('#radioo-channel').text('#'+channel_name);
   $('#radioo-channel').attr(
-    'href', 'http://twitter.com/search?q=%23'+channel_name);
+    'href', 'http://search.twitter.com/search?q=%23'+channel_name);
 });
 
 /* ----- Tabs ----- */
@@ -97,15 +103,18 @@ $(function() {
 /* Help */
 
 function openHelpDialog() {
-  alert("すいません、まだ何も書けてません。とりあえずいくつか。\n\n"+
-  "* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n"+
-  "* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\n"+
-  "v0.4.4 曲名がザ・ベストテン状態になるバグ・Nextボタンが無効でも押せるバグ・埋め込み不可動画で止まるバグの修正。\n"+
-  "v0.4.5 タイトルバーに曲名とか\n"+
-  "v0.4.6 古いコードが残っていたりして動画IDを取得するのを稀にミスしていた部分を修正。他コードの整理など。\n"+
-  "\n"+
-  "Radiooooの説明はgithubのwikiに書き直しました。http://wiki.github.com/khtokage/nise-radioooo/ \n\n"+
-  "3/13 07:00 @khlizard");
+  var msg = "すいません、まだ何も書けてません。とりあえずいくつか。\n\n" +
+  "* このプレイヤーは Google Chrome＋「アプリケーションのショートカットを作成」が超推奨です。\n" +
+  "* 特にIEは酷く、Radioo専用にChrome入れてもいいぐらいです。\n* 音量はマウスホイールでも変えれます。\n\n" +
+  //"■v0.4.5 \nタイトルバーに曲名とか\n" +
+  "■v0.4.6 \n動画IDを取得するのを稀にミスしていた部分を修正。\n" +
+  "■v0.4.7 \nRewind(巻き戻し)実装。タブを載せるために場所整理。\n" +
+  "■v0.4.8 \nRewind & Priv に変更。動画開始5秒以内だと前の曲を流します。\nタブ掲載。タブに載せる物は未実装です =)\n" +
+  "\n" +
+  "Radiooooの説明はgithubのwikiに書き直しました。http://wiki.github.com/khtokage/nise-radioooo/ \n" +
+  "\n" +
+  "3/14 15:30 @khlizard";
+  alert(msg);
   
   /*
   $("#dialog").dialog("destroy");
@@ -115,7 +124,10 @@ function openHelpDialog() {
       Ok: function() { $(this).dialog('close'); }
     }
   });
+  //window.open(pUrl, mWinName, mOption);
   */
+  
+  //window.open("http://www.google.com/", "", "alwaysLowered=no, dependent=no, hotkeys=no, width=200, height=160, ",false)
   
   return false;
 }

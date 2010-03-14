@@ -4,8 +4,8 @@
 
 body {
 	font-size: 9pt;
-	background-color: #color;
-	background-image: url("../img/bodybg.png");
+	background-color: white;
+	background-image: url("../img/bg_slash_3_ccc.png");
 }
 
 a {
@@ -58,10 +58,10 @@ button {
 }
 .area-info,
 .area-radiooo {
-	/*display: none;*/
+	display: none;
 }
 .area-tabs {
-	display: none;
+	/*display: none;*/
 }
 
 
@@ -115,8 +115,10 @@ button {
 /****** area control ******/
 
 td.area-control {
-	height: 1px;
+	height:  1px;
 	padding: 0;
+	border:  1px #E78F08 solid;
+	background: #ddd url(ui-lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png);
 }
 td.area-control * {
 	/*border: 1px red solid;*/
@@ -133,7 +135,6 @@ td.area-control * {
 .control-layout td.ctrl-buttons {
 	width: 145px;
 	padding: 0 0 0 5px;
-	/*border: 1px red solid;*/
 }
 .control-layout td.info {
 	width: 145px;
@@ -141,19 +142,20 @@ td.area-control * {
 .control-layout td.volume {
 	
 }
-
 .control-layout div.info {
+	background:     white;
+	text-align:     center;
 	vertical-align: middle;
-	text-align: center;
-	font-family: monospace;
-	border: 1px #ccc solid;
-	padding: 9px 0;
+	font-family:    monospace;
+	border:    1px #ccc solid;
+	padding:   9px 0;
 	font-size: 8pt;
-	margin: 0;
+	margin:    0;
 }
 .control-layout div.info * {
 	/*border: 1px red solid;*/
 }
+
 /* volume */
 
 #volume-control {
@@ -179,6 +181,50 @@ td.area-control * {
 
 
 
+/****** area tabs ******/
+
+#block-tabs ul.ui-tabs-nav {
+}
+#block-tabs li.ui-state-default,
+#block-tabs li.ui-state-default a,
+#block-tabs span.ui-button-text {
+	font-size: 8pt;
+}
+#block-tabs li.ui-tabs-selected {
+}
+#block-tabs li.ui-tabs-selected a {
+}
+#block-tabs div.ui-tabs-panel {
+	padding: 0;
+}
+#block-tabs table.tab-contents td {
+	height:  35px;
+	margin:  0;
+	padding: 6px 4px 4px 4px;
+	vertical-align: middle;
+	line-height:    1.2;
+	//background-color: #fcc;
+}
+
+/** tab - Reaction **/
+span.span-reqinfo {
+	margin: 0 0 0 150px;
+	font-family: monospace;
+	text-align: right;
+}
+
+/** tab - Credit **/
+.copyright {
+	font-size: 80%;
+}
+.copyright a {
+	
+}
+
+
+
+
+
 /****** area info ******/
 
 #radioo-channel {
@@ -196,10 +242,4 @@ td.area-control * {
 	color: #f6931f;
 }
 
-.copyright {
-	font-size: 80%;
-}
-.copyright a {
-	
-}
 

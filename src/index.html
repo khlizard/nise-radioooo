@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>RadioooClone v0.4.7</title>
+  <title>RadioooClone v0.4.8</title>
   <meta http-equiv="Content-Style-Type" content="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
   <link href="css/ui-lightness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" type="text/css">
@@ -46,7 +46,7 @@
     <tr><td class="area-control ui-corner-all">
       <table class="control-layout"><tr>
       <td class="ctrl-buttons">
-           <button id="btnRewind"></button><!--
+           <button id="btnPriv"></button><!--
         --><button id="btnPlay"></button><!--
         --><button id="btnPause"></button><!--
         --><button id="btnNext"></button>
@@ -72,18 +72,31 @@
     <tr><td class="area-tabs ui-corner-all">
       <div id="block-tabs">
         <ul>
-          <li><a href="#tabs-1">Nunc tincidunt</a></li>
-          <li><a href="#tabs-2">Proin dolor</a></li>
-          <li><a href="#tabs-3">Aenean lacinia</a></li>
+          <li><a href="#tabs-twi">Reaction</a></li>
+          <li><a href="#tabs-cre">Credit</a></li>
         </ul>
-        <div id="tabs-1">
-          Proin elit arcu,<br />aa
+        <div id="tabs-twi">
+          <table class="tab-contents"><tr><td>
+            <button id="btnClap" onclick="twitAny('CLAP!')"></button>
+            <button id="btnStand" onclick="twitAny('STAND!')"></button>
+            <span class="span-reqinfo">
+              <a id="radioo-channel" href="" target="_blank">--</a>
+              <span id="radiooo-playlist-length">--</span>
+            </span>
+          </td></tr></table>
         </div>
-        <div id="tabs-2">
-          Morbi tincidunt,
-        </div>
-        <div id="tabs-3">
-          Mauris eleifend
+        <div id="tabs-cre">
+          <table class="tab-contents"><tr><td>
+            <span class="helplink"><a href="javascript:void(0);" target="_blank" onclick="openHelpDialog();return false;">Help</a></span>
+            　　
+            <span class="copyright">&copy;
+              <a href="https://twitter.com/DameNegi" target="_blank">Damenegi</a>,
+              <a href="https://twitter.com/pump_pump_king" target="_blank">Pumpkin</a>,
+              <a href="https://twitter.com/khlizard" target="_blank">khlizard</a>
+              /
+              <a href="http://github.com/khtokage/nise-radioooo" target="_blank">git</a>
+            </span>
+          </td></tr></table>
         </div>
       </div>
     </td></tr>
