@@ -52,6 +52,3 @@ new_playlist = new Array();
 all_playlist = new Array();
 maxid = null;
 
-setInterval(getTimeline, 60000);
-getTimeline();
-
