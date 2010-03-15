@@ -46,8 +46,6 @@ function setJsonpCode(query) {
 
 
 
-/***** Initialize *****/
-
 new_playlist = new Array();
 all_playlist = new Array();
 maxid = null;

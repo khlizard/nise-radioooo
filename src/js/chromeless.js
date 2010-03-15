@@ -97,7 +97,7 @@ function updatePlayerInfo() {
     updateHTML("videoLoaded", num2str3z(lpph));
     updateHTML("videoVolume", num2str3(ytplayer.getVolume()));
     updateHTML("radiooo-playlist-length", 
-      new_playlist.length + "/" + all_playlist.length);
+        new_playlist.length + "/" + all_playlist.length); // + "/" + user_count
     if (playing && movie_dic[playing.song]) {
       document.title = '[' + movie_dic[playing.song].title + '] #' +
                        channel_name + ' - ' + base_title;
@@ -219,15 +219,14 @@ function sec2min(src) {
 
 
 
-/***** Initialize *****/
-
-google.setOnLoadCallback(function() {
-  _run();
-  $.getJSON("/shorturl/?" + channel_name, function(data){
-    this_url = data.short;
+function getUserCount() {
+  $.getJSON("/counter/?" + channel_name, function(data){
+    user_count = data.co;
   });
-  //document.title = '#' + channel_name + ' - ' + document.title; 
-});
+}
+var user_count = 1;
+
+
 
 var playing;
 var movie_dic = {};
