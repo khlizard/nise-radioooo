@@ -143,4 +143,3 @@ $(function() {
   $("meta[name='application-url']")
     .attr('content', location.href);
 });
-

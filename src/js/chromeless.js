@@ -76,7 +76,7 @@ function onPlayerStateChange(newState) {
   }
 }
 function onPlayerError() {
-  if (!isError) {
+  if (!isPlayerError) {
     console.warn("PlayerError");
     isPlayerError = true;
     setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);

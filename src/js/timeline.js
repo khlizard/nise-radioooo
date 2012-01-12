@@ -1,40 +1,75 @@
+var youtubeRequestRegex = /[A-Za-z0-9\-_]{11}/;
+var searchRequestRegex = /(.+)聞きたい/;
+
 function getTimeline() {
   var q =
     "http://search.twitter.com/search.json?lang=all&rpp=30&q=%23" + 
     channel_name + "&callback=jsonCallbackTimeline";
   if (maxid) q += "&since_id=" + maxid;
-  q += '&rndid=' + Math.random() * 100000000;
   setJsonpCode(q);
 }
 
 function jsonCallbackTimeline(json){
   if (json.results) {
-    maxid = json.max_id;
+    maxid = json.max_id_str;
     addRequests(json.results)
   }
 }
 
 function addRequests(res) {
   for(var i = res.length - 1; 0 <= i; i--) {
-    var j = res[i];
-    var videoID = cleanCode(j.text);
-    if (videoID) {
-      new_playlist.push({
-        song: videoID,
-        user: j.from_user,
-        icon: j.profile_image_url,
-        date: new Date(j.created_at),
-      });
-    }
+    cleanCode(res[i], function(j, videoID) {
+        if (videoID) {
+          new_playlist.push({
+            song: videoID,
+            user: j.from_user,
+            icon: j.profile_image_url,
+            date: new Date(j.created_at),
+          });
+        }
+    });
   }
 }
 
-function cleanCode(text){
-  var re01 = /[@#]\S+|[&?=;:,./^\r\n]/gim;
-  var remt = / ([a-z0-9\-\_]{11}) /i;
-  var str = ' ' + text.replace(re01, ' ') + ' ';
-  var match = str.match(remt);
-  return (match && 2 <= match.length) ? match.pop() : null;
+
+function search(j, query, callback) {
+    $.ajax({
+        type:"GET",
+        url:'http://gdata.youtube.com/feeds/videos',
+        data: {
+        'vq':query,
+        'start-index':'1',
+        'max-results':1,
+        'alt':'json-in-script',
+        'format':'5'
+    },
+    async:false,
+    dataType: 'jsonp',
+    success: function(data) {
+        var e = data.feed.entry[0];
+        var group = e.media$group;
+        var url = group.media$player[0].url;
+        var m;
+        if (m = url.match(/\?v=([A-Za-z0-9\-_]{11})/)) {
+            callback(j, m[1]);
+        }
+    },
+    error: function(xOptions, textStatus){
+        url = null
+    }
+    });
+}
+
+function cleanCode(j, callback){
+ 
+ var text = j.text.replace(/\s*[@#][a-zA-Z0-9_\-]+\s*/g, "");
+ 
+  var res;
+  if (res = text.match(youtubeRequestRegex)) {
+    callback(j, res[0]);
+  } else if (res = text.match(searchRequestRegex)) {
+    var url = search(j, res[1], callback);
+  }
 }
 
 function setJsonpCode(query) {
@@ -49,4 +84,3 @@ function setJsonpCode(query) {
 new_playlist = new Array();
 all_playlist = new Array();
 maxid = null;
-
