@@ -7,7 +7,7 @@ $(function() {
     // get Timeline
     getTimeline();
     // get UserCount
-    getUserCount();
+    //getUserCount();
   }, 60000);
   
   
@@ -17,12 +17,9 @@ $(function() {
   // get Timeline
   getTimeline();
   
-  // get short url
-  this_url = "http://radioooclone.vanu.jp/?" + channel_name;
-  
   // load Player
   setTimeout(_run, 1000);
   
   // get UserCount
-  getUserCount();
+  //getUserCount();
 });

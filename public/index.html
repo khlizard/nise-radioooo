@@ -10,7 +10,7 @@
   <meta name="application-url" content="http://radioooclone.vanu.jp/"/>
   <meta name="description" content="みんなでリクエストするムービープレイヤー Radioooo のクローン" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
-  <link href="css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
     base_title = document.title;
@@ -21,9 +21,9 @@
       return (r2 || r1 || r0).replace(/^[#\?]/, '');
     }();
     google.load("swfobject", "2");
+    google.load("jquery", "1");
+    google.load("jqueryui", "1");
   </script>
-  <script src="js/p/jquery-1.4.2.min.js" type="text/javascript"></script>
-  <script src="js/p/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
   <script src="js/p/jquery.mousewheel.min.js" type="text/javascript"></script>
   <script src="js/p/jquery.strftime-minified.js" type="text/javascript"></script>
   <script src="js/p/jquery.cookies.2.2.0.min.js" type="text/javascript"></script>

@@ -159,7 +159,7 @@ function twitAny(msg) {
     'http://twitter.com/home/?status=' + encodeURIComponent(msg) + 
     '%20' + t + '%20http://youtu.be/' + playing.song + 
     "%20DJ%20@" + playing.user + "%20%23radioooo" +
-    "%20" + this_url
+    "%20" + document.location.href
   );
 }
 
@@ -230,5 +230,3 @@ var user_count = 1;
 
 var playing;
 var movie_dic = {};
-
-var this_url = "http://j.mp/aDQtKc";
