@@ -18,9 +18,7 @@ $(function() {
   getTimeline();
   
   // get short url
-  $.getJSON("/shorturl/?" + channel_name, function(data){
-    this_url = data.short;
-  });
+  this_url = "http://radioooclone.vanu.jp/?" + channel_name;
   
   // load Player
   setTimeout(_run, 1000);
