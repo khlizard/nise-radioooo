@@ -187,7 +187,7 @@ function loadPlayer() {
   var atts = { id: "ytPlayer" };
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
   swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-                     "&enablejsapi=1&playerapiid=player1", 
+                     "&enablejsapi=1&playerapiid=player1&version=3", 
                      "videoDiv", "480", "295", "8", null, null, params, atts);
 }
 function _run() {
