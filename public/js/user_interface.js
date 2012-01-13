@@ -115,6 +115,7 @@ function openHelpDialog() {
   "■v0.4.8 \nRewind & Priv に変更。動画開始5秒以内だと前の曲を流します。\nタブ掲載。タブに載せる物は未実装です =)\n" +
   "■v0.4.9 \nRewind/Privボタンのバグ修正。\nChromeでショートカット作成時のメタ情報添加。\n" +
   "■v0.4.10 \n人によってプレイリストがきちんと取れない問題を修正\nちっちゃいアイコン付加。\n" +
+  "■v0.5.00 \nかぼちゃさんの修正（再生時のエラー等回避）、ひろみちゃんの機能追加（「～聞きたい #hashtag」での検索機能等）の取り込み、BookmarkletのUIへの追加。その他バグ修正やライブラリ更新など。\n" +
   "\n" +
   "Radiooooの説明はgithubのwikiに書き直しました。http://wiki.github.com/khtokage/nise-radioooo/ \n" +
   "\n" +
