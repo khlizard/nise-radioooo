@@ -69,21 +69,21 @@ function jsonCallbackGData(json){
 
 // http://code.google.com/intl/ja/apis/youtube/js_api_reference.html#Events
 function onPlayerStateChange(newState) {
-  console.log(newState);
-  if (first_state_changed && newState == -1) {
-    first_stat_changed = false;
+  console.log("PlayerState: " + newState);
+  if (isFirstStateChange && newState == -1) {
+    isFirstStateChange = false;
     nextSong();
   } else if (newState == 0) {
     nextSong();
   } else if (newState == 1) {
-    setTimeout(function(){ btnNextEnable(true); }, 1000);
+    setTimeout(function(){ btnNextEnable(true); }, 500);
   }
 }
-first_state_changed = true;
+isFirstStateChange = true;
 
-function onPlayerError() {
+function onPlayerError(code) {
   if (!isPlayerError) {
-    console.warn("PlayerError");
+    console.warn("VideoError: " + code);
     isPlayerError = true;
     setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
   }
