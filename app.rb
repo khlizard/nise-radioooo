@@ -4,6 +4,7 @@ require 'rubygems'
 require 'sinatra'
 
 before do
+  # enginxだったかVarnishだったかの仕様
   @host = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
 end
 

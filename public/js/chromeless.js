@@ -69,10 +69,10 @@ function jsonCallbackGData(json){
 
 // http://code.google.com/intl/ja/apis/youtube/js_api_reference.html#Events
 function onPlayerStateChange(newState) {
-  if (newState <= 0) {
+  if (newState == 0) {
     nextSong();
   } else if (newState == 1) {
-    setTimeout(function(){ btnNextEnable(true); }, 5500);
+    setTimeout(function(){ btnNextEnable(true); }, 1000);
   }
 }
 function onPlayerError() {
