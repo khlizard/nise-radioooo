@@ -2,23 +2,27 @@ var youtubeRequestRegex = /[A-Za-z0-9\-_]{11}/;
 var searchRequestRegex = /(.+)聞きたい/;
 
 function getTimeline() {
-  var q =
-    "http://search.twitter.com/search.json?lang=all&rpp=30&q=%23" + 
-    channel_name + "&callback=jsonCallbackTimeline";
-  if (maxid) q += "&since_id=" + maxid;
-  setJsonpCode(q);
-}
-
-function jsonCallbackTimeline(json){
-  if (json.results) {
-    maxid = json.max_id_str;
-    addRequests(json.results)
-  }
+  $.ajax({
+    url: "http://search.twitter.com/search.json",
+    dataType: 'jsonp',
+    data: {
+      q: "%23"+channel_name,
+      rpp: 30,
+      since_id: twitterMaxID,
+      lang: "all"
+    },
+    success: function(json) {
+      if (json.results) {
+        twitterMaxID = json.max_id_str;
+        addRequests(json.results)
+      }
+    },
+  });
 }
 
 function addRequests(res) {
-  for(var i = res.length - 1; 0 <= i; i--) {
-    cleanCode(res[i], function(j, videoID) {
+  for(var i = 1; i <= res.length; i++) {
+    cleanCode(res[res.length-i], function(j, videoID) {
         if (videoID) {
           new_playlist.push({
             song: videoID,
@@ -30,7 +34,6 @@ function addRequests(res) {
     });
   }
 }
-
 
 function search(j, query, callback) {
     $.ajax({
@@ -61,9 +64,7 @@ function search(j, query, callback) {
 }
 
 function cleanCode(j, callback){
- 
- var text = j.text.replace(/\s*[@#][a-zA-Z0-9_\-]+\s*/g, "");
- 
+  var text = j.text.replace(/\s*[@#][a-zA-Z0-9_\-]+\s*/g, "");
   var res;
   if (res = text.match(youtubeRequestRegex)) {
     callback(j, res[0]);
@@ -72,15 +73,9 @@ function cleanCode(j, callback){
   }
 }
 
-function setJsonpCode(query) {
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", query);
-  document.getElementsByTagName('head')[0].appendChild(script);
-}
 
 
 
 new_playlist = new Array();
 all_playlist = new Array();
-maxid = null;
+twitterMaxID = "0";

@@ -23,6 +23,7 @@ function nextSong() {
   updatePlayingData(playing);
   setMovieTitle(playing);
 }
+
 function privSong() {
   if (2 <= all_playlist.length) {
     btnNextEnable(false);
@@ -35,15 +36,26 @@ function privSong() {
     setMovieTitle(playing);
   }
 }
+
 function setMovieTitle(songdata) {
   if (movie_dic[songdata.song] && movie_dic[songdata.song].embed) {
     updateHTML('videoTitle', movie_dic[songdata.song].title);
   } else {
-    var q = "http://gdata.youtube.com/feeds/api/videos/" + 
-            playing.song + "?alt=json&callback=jsonCallbackGData";
-    setJsonpCode(q);
+    $.getJSON("http://gdata.youtube.com/feeds/api/videos/" +
+              playing.song + "?alt=json&callback=?",
+      function(json){
+        if (json.entry) {
+          var t = json.entry.title.$t;
+          updateHTML("videoTitle", t);
+          movie_dic[playing.song] = {title: t, embed: !json.entry.yt$noembed};
+          if (! movie_dic[playing.song].embed)
+            setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
+        }
+      }
+    );
   }
 }
+
 function updatePlayingData(songdata) {
   $('#videoUserIcon').attr('src', songdata.icon);
   updateHTML("videoUser",
@@ -52,19 +64,6 @@ function updatePlayingData(songdata) {
   );
   $('#videoPostedTime').strftime('%m/%d %H:%M:%S', songdata.date);
   $('#videoLink').attr('href', "http://youtu.be/" + songdata.song);
-}
-
-function jsonCallbackGData(json){
-  if (json.entry) {
-    var t = json.entry.title.$t;
-    updateHTML("videoTitle", t);
-    if (json.entry.yt$noembed) {
-      movie_dic[playing.song] = {title: t, embed: false};
-      setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
-    } else {
-      movie_dic[playing.song] = {title: t, embed: true};
-    }
-  }
 }
 
 // http://code.google.com/intl/ja/apis/youtube/js_api_reference.html#Events
@@ -83,7 +82,7 @@ isFirstStateChange = true;
 
 function onPlayerError(code) {
   if (!isPlayerError) {
-    console.warn("VideoError: " + code);
+    console.warn("VideoError: " + code + ", Playing: " + playing.song);
     isPlayerError = true;
     setTimeout(function(){ nextSong(); isPlayerError = false;}, 500);
   }
@@ -94,7 +93,6 @@ function updatePlayerInfo() {
   if(ytplayer && ytplayer.getDuration) {
     var cur = ytplayer.getCurrentTime();
     var dur = ytplayer.getDuration();
-    //var ppph = parseInt(cur / dur * 100);
     var lbyte = ytplayer.getVideoBytesLoaded();
     var tbyte = ytplayer.getVideoBytesTotal();
     var lpph  = parseInt(100 * lbyte / tbyte);
@@ -108,7 +106,6 @@ function updatePlayerInfo() {
       document.title = '[' + movie_dic[playing.song].title + '] #' +
                        channel_name + ' - ' + base_title;
     }
-    //updateHTML("", );
   }
 }
 
