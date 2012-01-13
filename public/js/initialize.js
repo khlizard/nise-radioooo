@@ -22,4 +22,8 @@ $(function() {
   
   // get UserCount
   //getUserCount();
+  
+  // bookmarklet
+  bkml = 
+  $("a#bookmarklet").attr("href", "javascript:tag='" + channel_name + "';window.open('http://twitter.com/home/?status=@home%20'+escape((location.href.match(/v=([^&=]{11})/)||[,0])[1])+'%20%2523'+tag);undefined;");
 });
