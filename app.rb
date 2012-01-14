@@ -22,16 +22,3 @@ get '/counter/:hashtag' do
 end
 
 
-
-# dev
-if ENV['RACK_ENV'] == 'development' then
-  get '/env' do
-    content_type 'text/plain', :charset => 'utf-8'
-    ENV.each.sort.map{|k,v| [k,v.inspect]*" => "} * "\n\n"
-  end
-
-  get '/version' do
-    content_type 'text/plain', :charset => 'utf-8'
-    @version
-  end
-end
