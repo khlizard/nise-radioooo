@@ -6,7 +6,7 @@ require 'sinatra'
 before do
   # heroku or fluxflex
   @host    = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
-  @version = File.read('version').strip.split(/[\-\.]/).map{|i|i[0,3]}*'.'
+  @version = File.read('public/version').strip.split(/[\-\.]/).map{|i|i[0,3]}*'.'
 end
 
 
