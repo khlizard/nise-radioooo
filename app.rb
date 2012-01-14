@@ -18,6 +18,12 @@ get '/counter/:hashtag' do
   'そのうちカウンターとか'
 end
 
+get '/env' do
+  content_type 'text/plain', :charset => 'utf-8'
+  `git `
+  ENV.each.sort.map{|k,v| [k,v.inspect]*" => "} * "\n\n"
+end
+
 #get '/shorturl/:videoid' do
 #  '今はt.coあるしいらんよね'
 #end
