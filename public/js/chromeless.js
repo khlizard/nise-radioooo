@@ -111,7 +111,10 @@ function updatePlayerInfo() {
 
 // Allow the user to set the volume from 0-100
 function setVideoVolume(volume) {
-  if (ytplayer) ytplayer.setVolume(volume);
+  if (ytplayer) {
+    ytplayer.setVolume(volume);
+    $.cookies.set('volume_value', volume);
+  }
 }
 function playVideo() {
   if (ytplayer) ytplayer.playVideo();
@@ -175,7 +178,15 @@ function onYouTubePlayerReady(playerId) {
   updatePlayerInfo();
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
-  $('#volume-slider').slider('value', ytplayer.getVolume());
+  
+  // volume
+  if (! $.cookies.get('volume_value'))
+    $.cookies.set('volume_value', 50);
+  var vol = $.cookies.get('volume_value');
+  setVideoVolume(vol);
+  $('#volume-slider').slider('value', vol);
+  updateHTML("videoVolume", num2str3(vol));
+  
   ytplayer.isMute = false;
 }
 

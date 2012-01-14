@@ -9,11 +9,12 @@ $(function() {
 
 /* ----- Volume ----- */
 $(function() {
+  
   $("#volume-slider").slider({
     range: "min",
-    min:     0,
-    max:   100,
-    value: 100,
+    min:    0,
+    max:  100,
+    value: 50,
     slide: function(event, ui) {
       setVideoVolume(ui.value);
       updateHTML("videoVolume", num2str3(ui.value));
@@ -23,14 +24,13 @@ $(function() {
   $('#volume-control').bind('mousewheel', function(event, delta) {
     if (!ytplayer.isMute) {
       var vol = 5;
-      if (delta < 0) vol = vol * -1
+      if (delta < 0) vol = vol * -1;
       upVideoVolume(vol);
     }
     return false;
   });
   
   $('#chkMute').button({icons: {primary: 'ui-icon-volume-on'}});
-  
   $('#chkMute').click(function() {
     var chk = $('#chkMute').attr('checked');
     $('.volume-value').css('color', chk ? '#f6931f' : '#bbb');
