@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>RadioooClone v0.5.00</title>
+  <title>RadioooClone</title>
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="application-name" content="RadioooClone" />
   <meta name="application-url" content="http://radioooclone.vanu.jp/"/>
@@ -12,7 +12,8 @@
   <link href="css/style.css" rel="stylesheet" type="text/css" />
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
-    base_title = document.title;
+    version = '$Version$';
+    base_title = 'RadioooClone ' + version;
     channel_name = function(){
       var r0 = 'radioooo_kichi';
       var r1 = 0 < location.hash.length ? location.hash : null;
@@ -99,9 +100,9 @@
         <div id="tabs-cre">
           <table class="tab-contents"><tr><td>
             <span class="helplink">
-              <a href="javascript:void(0);" target="_blank" onclick="openHelpDialog();return false;">Help</a>
+              $Version$ &nbsp; <a href="javascript:void(0);" target="_blank" onclick="openHelpDialog();return false;">Help</a>
             </span>
-            　　
+            <br />
             <span class="copyright">&copy;
               Damenegi(<a href="http://twitter.com/DameNegi" target="_blank">tw</a>),
               <a href="http://pump.dip.jp:30000/" target="_blank">Pumpkin</a>(<a href="http://twitter.com/pump_pump_king" target="_blank">tw</a>),
