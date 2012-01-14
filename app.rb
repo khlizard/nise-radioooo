@@ -20,8 +20,12 @@ end
 
 get '/env' do
   content_type 'text/plain', :charset => 'utf-8'
-  `git `
   ENV.each.sort.map{|k,v| [k,v.inspect]*" => "} * "\n\n"
+end
+
+get '/version' do
+  content_type 'text/plain', :charset => 'utf-8'
+  File.read 'version'
 end
 
 #get '/shorturl/:videoid' do
