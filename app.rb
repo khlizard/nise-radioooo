@@ -6,8 +6,10 @@ require 'sinatra'
 before do
   # heroku or fluxflex
   @host    = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
-  @version = File.read('version').strip.gsub("-",".").sub(/.{6}$/,"")
+  @version = File.read('version').strip.split(/[\-\.]/).map{|i|i[0,3]}*'.'
 end
+
+
 
 get '/' do
   content_type 'text/html', :charset => 'utf-8'
