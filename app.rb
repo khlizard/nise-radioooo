@@ -3,24 +3,30 @@
 require 'rubygems'
 require 'sinatra'
 
-before do
-  # heroku or fluxflex
-  @host    = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
-  @version = ENV['GIT_VERSION'] || `git describe --long --tags`
+helpers do
+  def version
+    (ENV['GIT_VERSION'] || `git describe --long --tags`).strip
+  end
 end
 
 
+
+before do
+  content_type 'text/plain', :charset => 'utf-8'
+  @host    = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'] # heroku or fluxflex
+end
 
 get '/' do
   content_type 'text/html', :charset => 'utf-8'
   cache_control :public, :max_age => 3600
-  v = ENV['GIT_VERSION'] || `git describe --long --tags`
-  
-  File.read('public/index.html').gsub('$Version$', v)
+  File.read('public/index.html').gsub('$Version$', version)
 end
 
-get '/counter/:hashtag' do
-  'not yet'
+get '/counter/:tag' do
+  "not yet #" + params[:tag]
 end
 
+get '/version' do
+  version
+end
 

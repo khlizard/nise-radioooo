@@ -152,6 +152,7 @@ function upVideoVolume(val) {
     if (v < 0)   v = 0;
     if (100 < v) v = 100;
     ytplayer.setVolume(v);
+    $.cookies.set('volume_value', v);
     updateHTML("videoVolume", num2str3(v));
     $("#volume-slider").slider('value', v);
   }
@@ -180,7 +181,7 @@ function onYouTubePlayerReady(playerId) {
   ytplayer.addEventListener("onError", "onPlayerError");
   
   // volume
-  if (! $.cookies.get('volume_value'))
+  if ($.cookies.get('volume_value') == null)
     $.cookies.set('volume_value', 50);
   var vol = $.cookies.get('volume_value');
   setVideoVolume(vol);

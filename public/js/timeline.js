@@ -1,4 +1,4 @@
-var youtubeRequestRegex = /[A-Za-z0-9\-_]{11}/;
+var youtubeRequestRegex = /\b[A-Za-z0-9\-_]{11}\b/;
 var searchRequestRegex = /(.+)聞きたい/;
 
 function getTimeline() {
@@ -22,7 +22,8 @@ function getTimeline() {
 
 function addRequests(res) {
   for(var i = 1; i <= res.length; i++) {
-    cleanCode(res[res.length-i], function(j, videoID) {
+    var x = res[res.length-i];
+    var r = cleanCode(x, function(j, videoID) {
         if (videoID) {
           new_playlist.push({
             song: videoID,
@@ -68,9 +69,12 @@ function cleanCode(j, callback){
   var res;
   if (res = text.match(youtubeRequestRegex)) {
     callback(j, res[0]);
+    return true;
   } else if (res = text.match(searchRequestRegex)) {
     var url = search(j, res[1], callback);
+    return true;
   }
+  return false;
 }
 
 

@@ -10,6 +10,15 @@ $(function() {
 /* ----- Volume ----- */
 $(function() {
   
+  $('#volume-control').mousewheel(function(event, delta) {
+    if (!ytplayer.isMute) {
+      var vol = 5;
+      if (delta < 0) vol *= -1;
+      upVideoVolume(vol);
+    }
+    return false;
+  });
+  
   $("#volume-slider").slider({
     range: "min",
     min:    0,
@@ -19,15 +28,6 @@ $(function() {
       setVideoVolume(ui.value);
       updateHTML("videoVolume", num2str3(ui.value));
     }
-  });
-  
-  $('#volume-control').bind('mousewheel', function(event, delta) {
-    if (!ytplayer.isMute) {
-      var vol = 5;
-      if (delta < 0) vol = vol * -1;
-      upVideoVolume(vol);
-    }
-    return false;
   });
   
   $('#chkMute').button({icons: {primary: 'ui-icon-volume-on'}});

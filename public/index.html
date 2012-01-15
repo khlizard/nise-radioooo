@@ -13,7 +13,7 @@
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
     version = '$Version$';
-    base_title = 'RadioooClone ' + version;
+    base_title = 'RadioooClone ' + version.replace(/-\w+$/,"");
     channel_name = function(){
       var r0 = 'radioooo_kichi';
       var r1 = 0 < location.hash.length ? location.hash : null;
@@ -43,6 +43,10 @@
         <div class="video-info">
           Requested by <img id="videoUserIcon"><span id="videoUser">--</span>
           (<span id="videoPostedTime">--</span>)
+        </div>
+        <div class="request-info">
+          <a id="radioo-channel" href="" target="_blank">--</a>
+          <span id="radiooo-playlist-length">--</span>
         </div>
       </div>
     </td></tr>
@@ -86,10 +90,6 @@
           <table class="tab-contents"><tr><td>
             <button id="btnClap" onclick="twitAny('ｷﾀ━（ﾟ∀ﾟ）━！')"></button>
             <button id="btnStand" onclick="twitAny('ガタッ！')"></button>
-            <span class="span-reqinfo">
-              <a id="radioo-channel" href="" target="_blank">--</a>
-              <span id="radiooo-playlist-length">--</span>
-            </span>
           </td></tr></table>
         </div>
         <div id="tabs-tol">
