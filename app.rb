@@ -6,8 +6,7 @@ require 'sinatra'
 before do
   # heroku or fluxflex
   @host    = env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']
-  #@version = File.read('version').strip.split(/[\-\.]/).map{|i|i[0,3]}*'.'
-  @version = "v0.5.1.3.g8d"
+  @version = ENV['GIT_VERSION'] || `git describe --long --tags`
 end
 
 
@@ -15,7 +14,9 @@ end
 get '/' do
   content_type 'text/html', :charset => 'utf-8'
   cache_control :public, :max_age => 3600
-  File.read('public/index.html').gsub('$Version$', @version)
+  v = ENV['GIT_VERSION'] || `git describe --long --tags`
+  
+  File.read('public/index.html').gsub('$Version$', v)
 end
 
 get '/counter/:hashtag' do

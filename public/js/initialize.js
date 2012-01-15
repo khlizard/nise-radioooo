@@ -24,12 +24,12 @@ $(function() {
   //getUserCount();
   
   // bookmarklet
-  var blink = $("a#bookmarklet");
-  blink.attr("href", 
+  var bklink = $("a#bookmarklet");
+  bklink.attr("href", 
     "javascript:tag='" + channel_name + 
     "';window.open('http://twitter.com/home/?status=@home%20'+"+ 
     "escape((location.href.match(/v=([^&=]{11})/)||[,0])[1])+'%20%2523'+tag);"+
     "undefined;"
   );
-  blink.html("request for #" + channel_name);
+  bklink.html("request for #" + channel_name);
 });
