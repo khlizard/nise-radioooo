@@ -1,4 +1,4 @@
-var youtubeRequestRegex = /\b[A-Za-z0-9\-_]{11}\b/;
+var youtubeRequestRegex = /\s*[A-Za-z0-9_\-]{11}\s*/;
 var searchRequestRegex = /(.+)聞きたい/;
 
 function getTimeline() {
@@ -21,6 +21,7 @@ function getTimeline() {
 }
 
 function addRequests(res) {
+  $("#marquee").empty();
   for(var i = 1; i <= res.length; i++) {
     var x = res[res.length-i];
     var r = cleanCode(x, function(j, videoID) {
@@ -33,7 +34,13 @@ function addRequests(res) {
           });
         }
     });
+    if (!r) {
+        var text = x.text.replace(/\s*#[a-zA-Z0-9_\-]{11}\s*/g, "");
+        text = text.replace(/\n/g, " ");
+        $("#marquee").append("<li>" + x.from_user + ": " + text + "</li>");
+    }
   }
+  $("#marquee").marquee();
 }
 
 function search(j, query, callback) {

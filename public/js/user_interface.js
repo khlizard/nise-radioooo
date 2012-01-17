@@ -93,6 +93,10 @@ $(function() {
     text: true,
     label: 'STAND!'
   });
+  $('#btnComment').button({
+    text: true,
+    label: 'COMMENT'
+  });
   
   $('#radioo-channel').text('#'+channel_name);
   $('#radioo-channel').attr(

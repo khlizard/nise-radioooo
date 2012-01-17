@@ -3,9 +3,17 @@
 require 'rubygems'
 require 'sinatra'
 
+def version
+  (ENV['GIT_VERSION'] || `git describe --long --tags`).strip
+end
+
+
+
 helpers do
-  def version
-    (ENV['GIT_VERSION'] || `git describe --long --tags`).strip
+  def raw(name, params)
+    r = File.read('view/'+name.to_s)
+    params.each {|k, v| r.gsub!(k, v)}
+    r
   end
 end
 
@@ -19,7 +27,7 @@ end
 get '/' do
   content_type 'text/html', :charset => 'utf-8'
   cache_control :public, :max_age => 3600
-  File.read('public/index.html').gsub('$Version$', version)
+  raw 'index.html', '$Version$' => version
 end
 
 get '/counter/:tag' do
@@ -30,3 +38,7 @@ get '/version' do
   version
 end
 
+get %r!^/scripts/([\w\-]+)\.user\.js$! do |tag|
+  content_type 'text/javascript', :charset => 'utf-8'
+  raw 'userscript.js', '$Tag$' => tag
+end
