@@ -21,6 +21,7 @@ function getTimeline() {
 }
 
 function addRequests(res) {
+  $("#marquee").empty();
   for(var i = 1; i <= res.length; i++) {
     var x = res[res.length-i];
     var r = cleanCode(x, function(j, videoID) {
@@ -33,7 +34,13 @@ function addRequests(res) {
           });
         }
     });
+    if (!r) {
+        var text = x.text.replace(/\b#[a-zA-Z0-9_\-]+\b/g, "");
+        text = text.replace(/\n/g, " ");
+        $("#marquee").append("<li>" + x.from_user + ": " + text + "</li>");
+	  }
   }
+  $("#marquee").marquee();
 }
 
 function search(j, query, callback) {

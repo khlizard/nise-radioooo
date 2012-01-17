@@ -23,6 +23,7 @@ $(function() {
   // get UserCount
   //getUserCount();
   
+  
   // bookmarklet
   var bklink = $("a#bookmarklet");
   bklink.attr("href", 
@@ -32,4 +33,6 @@ $(function() {
     "undefined;"
   );
   bklink.html("request for #" + channel_name);
+  // greasemonkey
+  $("a#userscript").attr("href", "/scripts/" + channel_name + ".user.js");
 });

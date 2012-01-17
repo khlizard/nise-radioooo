@@ -163,10 +163,25 @@ function twitAny(msg) {
   if (thr <= t.length) t = t.substring(0,thr-1) + "…"
   t = encodeURIComponent(t);
   window.open(
-    'http://twitter.com/home/?status=' + encodeURIComponent(msg) + 
-    '%20' + t + '%20http://youtu.be/' + playing.song + 
-    "%20DJ%20@" + playing.user + "%20%23radioooo" +
-    "%20" + document.location.href
+    'https://twitter.com/intent/tweet?source=webclient&text=' + 
+      encodeURIComponent(msg) + 
+      '%20' + t + '%20http://youtu.be/' + playing.song + 
+      "%20by%20@" + playing.user + 
+      "%20" + document.location.href +
+      "%20%23" + channel_name + "%20%23" + playing.song,
+    null,
+    "width=400,height=300,menubar=no,toolbar=no," +
+      "location=no,status=no,resizable=no,scrollbars=no"
+  );
+}
+
+function twitComment(msg) {
+  window.open(
+    'https://twitter.com/intent/tweet?source=webclient&text=' + 
+      encodeURIComponent(msg)+"%20%23"+channel_name+"%20%23"+playing.song,
+    null,
+    "width=400,height=300,menubar=no,toolbar=no," +
+      "location=no,status=no,resizable=no,scrollbars=no"
   );
 }
 
